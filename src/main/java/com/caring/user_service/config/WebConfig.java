@@ -57,7 +57,8 @@ public class WebConfig {
                 .authorizeHttpRequests(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequest -> {
                     authorizeRequest
-                            .requestMatchers("/", "/.well-known/**", "/css/**", "/*.ico", "/error", "/images/**").permitAll()
+                            .requestMatchers("/", "/.well-known/**", "/css/**", "/*.ico",
+                                    "/error", "/images/**").permitAll()
                             .requestMatchers(permitAllRequest()).permitAll()
                             .requestMatchers(additionalSwaggerRequests()).permitAll()
                             .requestMatchers(authRelatedEndpoints()).access((authentication, request) -> {
@@ -78,6 +79,7 @@ public class WebConfig {
     private RequestMatcher[] permitAllRequest() {
         List<RequestMatcher> requestMatchers = List.of(
                 antMatcher("/health_check"),
+                antMatcher("/actuator/**"),
                 antMatcher("/welcome")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
