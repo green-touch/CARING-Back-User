@@ -5,10 +5,12 @@ import com.caring.user_service.common.util.RandomNumberUtil;
 import com.caring.user_service.domain.user.entity.User;
 import com.caring.user_service.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @DomainService
+@Transactional
 @RequiredArgsConstructor
 public class UserDomainServiceImpl implements UserDomainService{
 

@@ -4,10 +4,12 @@ import com.caring.user_service.common.annotation.Adaptor;
 import com.caring.user_service.domain.user.entity.User;
 import com.caring.user_service.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Adaptor
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserAdaptorImpl implements UserAdaptor{
 
