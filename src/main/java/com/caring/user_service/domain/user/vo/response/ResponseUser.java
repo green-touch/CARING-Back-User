@@ -1,8 +1,6 @@
 package com.caring.user_service.domain.user.vo.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @Builder
