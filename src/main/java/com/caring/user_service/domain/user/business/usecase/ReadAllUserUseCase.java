@@ -2,9 +2,9 @@ package com.caring.user_service.domain.user.business.usecase;
 
 import com.caring.user_service.common.annotation.UseCase;
 import com.caring.user_service.domain.user.business.adaptor.UserAdaptor;
-import com.caring.user_service.domain.user.entity.User;
+import com.caring.user_service.domain.user.dao.entity.User;
 import com.caring.user_service.domain.user.mapper.UserMapper;
-import com.caring.user_service.domain.user.vo.request.ResponseUser;
+import com.caring.user_service.domain.user.vo.response.ResponseUser;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

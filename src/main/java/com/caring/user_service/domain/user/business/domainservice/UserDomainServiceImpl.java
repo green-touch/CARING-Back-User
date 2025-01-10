@@ -2,8 +2,8 @@ package com.caring.user_service.domain.user.business.domainservice;
 
 import com.caring.user_service.common.annotation.DomainService;
 import com.caring.user_service.common.util.RandomNumberUtil;
-import com.caring.user_service.domain.user.entity.User;
-import com.caring.user_service.domain.user.repository.UserRepository;
+import com.caring.user_service.domain.user.dao.entity.User;
+import com.caring.user_service.domain.user.dao.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -3,7 +3,7 @@ package com.caring.user_service.domain.user.controller;
 import com.caring.user_service.domain.user.business.usecase.ReadAllUserUseCase;
 import com.caring.user_service.domain.user.business.usecase.RegisterUserUseCase;
 import com.caring.user_service.domain.user.vo.request.RequestUser;
-import com.caring.user_service.domain.user.vo.request.ResponseUser;
+import com.caring.user_service.domain.user.vo.response.ResponseUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

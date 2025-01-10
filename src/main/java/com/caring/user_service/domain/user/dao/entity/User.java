@@ -1,4 +1,4 @@
-package com.caring.user_service.domain.user.entity;
+package com.caring.user_service.domain.user.dao.entity;
 
 import com.caring.user_service.domain.auditing.entity.BaseTimeEntity;
 import jakarta.persistence.*;
