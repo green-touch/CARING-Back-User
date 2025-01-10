@@ -1,4 +1,27 @@
 package com.caring.user_service.domain.user.business.domainservice;
 
-public class UserDomainServiceImpl {
+import com.caring.user_service.common.annotation.DomainService;
+import com.caring.user_service.common.util.RandomNumberUtil;
+import com.caring.user_service.domain.user.entity.User;
+import com.caring.user_service.domain.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+
+import java.util.UUID;
+
+@DomainService
+@RequiredArgsConstructor
+public class UserDomainServiceImpl implements UserDomainService{
+
+    private final UserRepository userRepository;
+
+    @Override
+    public Long registerUser(String password, String name) {
+        User newUser = User.builder()
+                .userNumber(RandomNumberUtil.generateRandomUserNumber())
+                .userUuid(UUID.randomUUID().toString())
+                .password(password)
+                .name(name)
+                .build();
+        return userRepository.save(newUser).getId();
+    }
 }
