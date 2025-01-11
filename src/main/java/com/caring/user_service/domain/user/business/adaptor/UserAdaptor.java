@@ -9,4 +9,6 @@ public interface UserAdaptor {
     User findById(Long userId);
 
     List<User> findAll();
+
+    User getUserByUserNumber(String userNumber);
 }
