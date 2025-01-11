@@ -80,7 +80,8 @@ public class WebConfig {
         List<RequestMatcher> requestMatchers = List.of(
                 antMatcher("/health_check"),
                 antMatcher("/actuator/**"),
-                antMatcher("/welcome")
+                antMatcher("/welcome"),
+                antMatcher("/v1/api/tokens/**")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
     }

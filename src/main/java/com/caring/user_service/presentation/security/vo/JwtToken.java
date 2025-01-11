@@ -1,11 +1,8 @@
-package com.caring.user_service.security.dto;
+package com.caring.user_service.presentation.security.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

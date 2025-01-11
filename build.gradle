@@ -28,8 +28,11 @@ ext {
 }
 
 dependencies {
+	// Spring Jpa
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// Spring Web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// Spring cloud
 	implementation 'org.springframework.cloud:spring-cloud-starter'
 	// Spring cloud Config
 //	implementation 'org.springframework.cloud:spring-cloud-starter-config'

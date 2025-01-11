@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class RandomNumberUtil {
 
-    private final static int USER_NUMBER_LENGTH = 7;
-    private final static String USER_NUMBER_PRESET = "CR#";
+    private final static int MEMBER_CODE_LENGTH = 7;
+    private final static String MEMBER_CODE_PRESET = "CR#";
 
     public static String generateRandomNumber(int passwordLength) {
         int index = 0;
@@ -29,8 +29,8 @@ public class RandomNumberUtil {
         return password.toString();
     }
 
-    public static String generateRandomUserNumber() {
-        String number = generateRandomNumber(USER_NUMBER_LENGTH);
-        return USER_NUMBER_PRESET.concat(number);
+    public static String generateRandomMemberCode() {
+        String number = generateRandomNumber(MEMBER_CODE_LENGTH);
+        return MEMBER_CODE_PRESET.concat(number);
     }
 }

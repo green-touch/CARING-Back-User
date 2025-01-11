@@ -1,4 +1,4 @@
-package com.caring.user_service.presentation.user.vo.response;
+package com.caring.user_service.presentation.user.vo;
 
 import lombok.*;
 
@@ -8,5 +8,5 @@ import lombok.*;
 public class ResponseUser {
     private final String name;
     private final String userUuid;
-    private final String userNumber;
+    private final String memberCode;
 }
