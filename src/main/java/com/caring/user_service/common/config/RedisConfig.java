@@ -1,4 +1,4 @@
-package com.caring.user_service.config;
+package com.caring.user_service.common.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package com.caring.user_service.domain.user.vo.response;
+package com.caring.user_service.presentation.user.vo.response;
 
 import lombok.*;
 
