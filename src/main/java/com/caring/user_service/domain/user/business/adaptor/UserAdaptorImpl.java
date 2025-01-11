@@ -1,8 +1,8 @@
 package com.caring.user_service.domain.user.business.adaptor;
 
 import com.caring.user_service.common.annotation.Adaptor;
-import com.caring.user_service.domain.user.dao.entity.User;
-import com.caring.user_service.domain.user.dao.repository.UserRepository;
+import com.caring.user_service.domain.user.entity.User;
+import com.caring.user_service.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +26,7 @@ public class UserAdaptorImpl implements UserAdaptor{
     }
 
     @Override
-    public User getUserByUserNumber(String userNumber) {
-        return userRepository.findByUserNumber(userNumber).orElseThrow(() -> new RuntimeException("not found user"));
+    public User getUserByMemberCode(String memberCode) {
+        return userRepository.findByMemberCode(memberCode).orElseThrow(() -> new RuntimeException("not found user"));
     }
 }

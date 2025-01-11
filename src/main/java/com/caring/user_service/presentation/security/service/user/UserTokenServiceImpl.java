@@ -1,10 +1,10 @@
-package com.caring.user_service.security.service.user;
+package com.caring.user_service.presentation.security.service.user;
 
-import com.caring.user_service.security.dto.JwtToken;
+import com.caring.user_service.presentation.security.vo.JwtToken;
 import com.caring.user_service.common.service.RedisService;
 import com.caring.user_service.domain.user.business.adaptor.UserAdaptor;
 import com.caring.user_service.presentation.user.usecase.UserLoginUseCase;
-import com.caring.user_service.domain.user.dao.entity.User;
+import com.caring.user_service.domain.user.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -48,8 +48,8 @@ public class UserTokenServiceImpl implements UserTokenService {
         this.userLoginUseCase = userLoginUseCase;
     }
     @Override
-    public JwtToken login(String userNumber, String password) {
-        User user = userLoginUseCase.execute(userNumber, password);
+    public JwtToken login(String memberCode, String password) {
+        User user = userLoginUseCase.execute(memberCode, password);
         return generateToken(
                 new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities())
         );
@@ -64,8 +64,8 @@ public class UserTokenServiceImpl implements UserTokenService {
 
         // 3. 새로운 Authentication 객체 생성
         Claims claims = parseClaims(refreshToken);
-        String userNumber = claims.getSubject();
-        User user = userAdaptor.getUserByUserNumber(userNumber);
+        String memberCode = claims.getSubject();
+        User user = userAdaptor.getUserByMemberCode(memberCode);
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, "",
                 user.getAuthorities());
 

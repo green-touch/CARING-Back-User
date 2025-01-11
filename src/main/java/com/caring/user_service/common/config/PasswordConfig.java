@@ -1,4 +1,4 @@
-package com.caring.user_service.security.config;
+package com.caring.user_service.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

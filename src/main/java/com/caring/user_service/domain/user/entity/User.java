@@ -1,4 +1,4 @@
-package com.caring.user_service.domain.user.dao.entity;
+package com.caring.user_service.domain.user.entity;
 
 import com.caring.user_service.domain.auditing.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @Entity
 @Getter
@@ -28,8 +27,8 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Column(unique = true)
     private String userUuid;
-    @Column(unique = true)
-    private String userNumber;
+    @Column(name = "member_code", unique = true)
+    private String memberCode;
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -43,6 +42,6 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getUserNumber();
+        return this.getMemberCode();
     }
 }

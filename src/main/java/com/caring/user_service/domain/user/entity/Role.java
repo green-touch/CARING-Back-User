@@ -1,4 +1,4 @@
-package com.caring.user_service.domain.user.dao.entity;
+package com.caring.user_service.domain.user.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

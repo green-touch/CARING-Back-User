@@ -1,6 +1,6 @@
 package com.caring.user_service.domain.user.business.adaptor;
 
-import com.caring.user_service.domain.user.dao.entity.User;
+import com.caring.user_service.domain.user.entity.User;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface UserAdaptor {
 
     List<User> findAll();
 
-    User getUserByUserNumber(String userNumber);
+    User getUserByMemberCode(String memberCode);
 }
