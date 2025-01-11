@@ -1,9 +1,9 @@
-package com.caring.user_service.common.security.service;
+package com.caring.user_service.security.service.user;
 
-import com.caring.user_service.common.security.dto.JwtToken;
+import com.caring.user_service.security.dto.JwtToken;
 import com.caring.user_service.common.service.RedisService;
 import com.caring.user_service.domain.user.business.adaptor.UserAdaptor;
-import com.caring.user_service.domain.user.business.usecase.UserLoginUseCase;
+import com.caring.user_service.presentation.user.usecase.UserLoginUseCase;
 import com.caring.user_service.domain.user.dao.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

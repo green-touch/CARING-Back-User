@@ -1,4 +1,4 @@
-package com.caring.user_service.common.security.dto;
+package com.caring.user_service.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
