@@ -3,6 +3,7 @@ package com.caring.user_service.common.security.service;
 import com.caring.user_service.common.security.dto.JwtToken;
 import com.caring.user_service.common.service.RedisService;
 import com.caring.user_service.domain.user.business.adaptor.UserAdaptor;
+import com.caring.user_service.domain.user.business.usecase.UserLoginUseCase;
 import com.caring.user_service.domain.user.dao.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -13,12 +14,10 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -31,58 +30,46 @@ import java.util.stream.Collectors;
 @Service
 public class UserTokenServiceImpl implements UserTokenService {
 
-    private final Key key;      //security yml 파일 생성 후 app.jwt.secret에 값 넣어주기(보안을 위해 따로 연락주세요)
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final PasswordEncoder passwordEncoder;
+    private final Key key;
     private final Environment env;
     private final RedisService redisService;
     private final UserAdaptor userAdaptor;
+    private final UserLoginUseCase userLoginUseCase;
 
-    public UserTokenServiceImpl(AuthenticationManagerBuilder authenticationManagerBuilder,
-                                PasswordEncoder passwordEncoder,
-                                Environment environment,
+    public UserTokenServiceImpl(Environment environment,
                                 RedisService redisService,
-                                UserAdaptor userAdaptor) {
+                                UserAdaptor userAdaptor,
+                                UserLoginUseCase userLoginUseCase) {
         byte[] keyBytes = Decoders.BASE64.decode(environment.getProperty("token.secret"));
         this.key = Keys.hmacShaKeyFor(keyBytes);
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.env = environment;
-        this.passwordEncoder = passwordEncoder;
         this.redisService = redisService;
         this.userAdaptor = userAdaptor;
+        this.userLoginUseCase = userLoginUseCase;
     }
     @Override
     public JwtToken login(String userNumber, String password) {
         User user = userLoginUseCase.execute(userNumber, password);
-        Authentication authentication;
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new IllegalArgumentException("wrong arguments(security login)");
-        }
-        authentication = new UsernamePasswordAuthenticationToken(user, "",
-                user.getAuthorities());
-
-        JwtToken jwtToken = generateToken(authentication);
-        return jwtToken;
+        return generateToken(
+                new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities())
+        );
     }
 
     @Override
-    public JwtToken issueToken(String refreshToken) {
-        // Refresh Token 유효성 검사 -> gateway에서
+    public JwtToken reissueToken(String refreshToken) {
+        // 1. Refresh Token 유효성 검사 -> gateway에서
 
-        // 이전 리프레시 토큰 삭제
+        // 2. 이전 리프레시 토큰 삭제
         redisService.deleteValue(refreshToken);
 
-        // 새로운 Authentication 객체 생성
+        // 3. 새로운 Authentication 객체 생성
         Claims claims = parseClaims(refreshToken);
         String userNumber = claims.getSubject();
         User user = userAdaptor.getUserByUserNumber(userNumber);
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, "",
                 user.getAuthorities());
 
-        // 새 토큰 생성
-        JwtToken newTokens = generateToken(authentication);
-
-        return newTokens;
+        return generateToken(authentication);
     }
 
     @Override
@@ -149,6 +136,11 @@ public class UserTokenServiceImpl implements UserTokenService {
         return true;
     }
 
+    /**
+     * use in reissue(but how??)
+     * @param refreshToken
+     * @return
+     */
     @Override
     public boolean existsRefreshToken(String refreshToken) {
         return redisService.getValue(refreshToken) != null;

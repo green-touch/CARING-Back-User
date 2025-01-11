@@ -24,4 +24,9 @@ public class UserAdaptorImpl implements UserAdaptor{
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    @Override
+    public User getUserByUserNumber(String userNumber) {
+        return userRepository.findByUserNumber(userNumber).orElseThrow(() -> new RuntimeException("not found user"));
+    }
 }
