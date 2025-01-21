@@ -35,7 +35,7 @@ dependencies {
 	// Spring cloud
 	implementation 'org.springframework.cloud:spring-cloud-starter'
 	// Spring cloud Config
-//	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	// Eureka Client
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	// Lombok
@@ -48,6 +48,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	// Actuator
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	// bootstrap
+	implementation "org.springframework.cloud:spring-cloud-starter-bootstrap"
 	// Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	// JWT

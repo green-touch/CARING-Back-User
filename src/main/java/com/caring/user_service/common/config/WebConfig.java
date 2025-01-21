@@ -66,7 +66,7 @@ public class WebConfig {
                                 log.info("client ip is = {}", clientIp);
 
                                 // 허용된 IP 리스트
-                                String[] allowedIps = {"127.0.0.1","172.20.10.2", "0:0:0:0:0:0:0:1"};
+                                String[] allowedIps = {"127.0.0.1","172.20.10.2", "0:0:0:0:0:0:0:1", "192.168.123.121"};
 
                                 // IP가 허용된 리스트에 포함되어 있는지 확인
                                 boolean isAllowed = Arrays.asList(allowedIps).contains(clientIp);
