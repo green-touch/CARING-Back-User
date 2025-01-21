@@ -5,9 +5,6 @@ spring:
   application:
     name: user-service
 
-greeting:
-  message: Welcome to the Simple USER-SERVICE.
-
 management:
   endpoints:
     web:
