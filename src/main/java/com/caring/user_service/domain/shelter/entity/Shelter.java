@@ -3,11 +3,11 @@ package com.caring.user_service.domain.shelter.entity;
 
 import com.caring.user_service.domain.auditing.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,4 +25,5 @@ public class Shelter extends BaseTimeEntity {
     private String shelterUuid;
 
     private String location;
+
 }

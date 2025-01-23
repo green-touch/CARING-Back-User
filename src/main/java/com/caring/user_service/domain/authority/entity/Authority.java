@@ -23,5 +23,5 @@ public class Authority extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private ManagerRole authority;
+    private ManagerRole managerRole;
 }

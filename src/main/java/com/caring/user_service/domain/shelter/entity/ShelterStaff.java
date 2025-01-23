@@ -9,18 +9,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.security.core.userdetails.User;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "shelter_group")
-public class ShelterGroup extends BaseTimeEntity {
+@Table(name = "shelter_staff")
+public class ShelterStaff extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shelter_group_id")
+    @Column(name = "shelter_staff_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,6 +27,6 @@ public class ShelterGroup extends BaseTimeEntity {
     private Shelter shelter;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "manager_id")
+    private Manager manager;
 }
