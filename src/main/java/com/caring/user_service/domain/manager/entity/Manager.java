@@ -38,7 +38,7 @@ public class Manager extends BaseTimeEntity implements UserDetails {
     private String name;
 
     @Builder.Default
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager", cascade = CascadeType.PERSIST)
     private List<ManagerAuthority> managerAuthorityList = new ArrayList<>();
 
     @Override

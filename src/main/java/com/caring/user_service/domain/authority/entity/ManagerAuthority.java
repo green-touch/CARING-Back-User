@@ -27,4 +27,8 @@ public class ManagerAuthority {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private Manager manager;
+
+    public void link(Manager manager) {
+        manager.getManagerAuthorityList().add(this);
+    }
 }
