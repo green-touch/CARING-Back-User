@@ -1,11 +1,12 @@
 package com.caring.user_service.domain.user.entity;
 
+import com.caring.user_service.common.interfaces.KeyedEnum;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Role {
+public enum Role implements KeyedEnum {
 
     USER("ROLE_USER"), NOT_ALLOWED("ROLE_NOT_ALLOWED");
 
