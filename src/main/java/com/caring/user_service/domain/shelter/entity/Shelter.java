@@ -1,7 +1,7 @@
-package com.caring.user_service.domain.manager.entity;
+package com.caring.user_service.domain.shelter.entity;
+
 
 import com.caring.user_service.domain.auditing.entity.BaseTimeEntity;
-import com.caring.user_service.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,19 +14,15 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "manager_group")
-public class ManagerGroup extends BaseTimeEntity {
-
+@Table(name = "shelter")
+public class Shelter extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "manager_group_id")
+    @Column(name = "shelter_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
+    @Column(unique = true)
+    private String shelterUuid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private String location;
 }
