@@ -40,7 +40,7 @@ public class UserTokenServiceImpl implements UserTokenService {
                                 RedisService redisService,
                                 UserAdaptor userAdaptor,
                                 UserLoginUseCase userLoginUseCase) {
-        byte[] keyBytes = Decoders.BASE64.decode(environment.getProperty("token.secret"));
+        byte[] keyBytes = Decoders.BASE64.decode(environment.getProperty("token.secret-user"));
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.env = environment;
         this.redisService = redisService;
