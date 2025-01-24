@@ -43,11 +43,12 @@ public class ManagerTokenServiceImpl implements ManagerTokenService{
                                    RedisService redisService,
                                    ManagerAdaptor managerAdaptor,
                                    ManagerLoginUseCase managerLoginUseCase) {
-        byte[] keyBytes = Decoders.BASE64.decode(environment.getProperty("token.secret"));
+        byte[] keyBytes = Decoders.BASE64.decode(environment.getProperty("token.secret-manager"));
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.env = environment;
         this.redisService = redisService;
         this.managerAdaptor = managerAdaptor;
+        this.managerLoginUseCase = managerLoginUseCase;
     }
     @Override
     public JwtToken login(String memberCode, String password) {
