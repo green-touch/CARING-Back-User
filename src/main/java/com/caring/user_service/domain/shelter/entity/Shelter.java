@@ -24,6 +24,8 @@ public class Shelter extends BaseTimeEntity {
     @Column(unique = true)
     private String shelterUuid;
 
+    private String name;
+
     private String location;
 
 }
