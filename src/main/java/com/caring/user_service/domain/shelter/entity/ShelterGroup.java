@@ -3,13 +3,13 @@ package com.caring.user_service.domain.shelter.entity;
 
 import com.caring.user_service.domain.auditing.entity.BaseTimeEntity;
 import com.caring.user_service.domain.manager.entity.Manager;
+import com.caring.user_service.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.security.core.userdetails.User;
 
 @Entity
 @Getter
