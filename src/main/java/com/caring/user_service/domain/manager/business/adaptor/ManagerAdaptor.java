@@ -11,4 +11,6 @@ public interface ManagerAdaptor {
     Manager queryByManagerUuid(String managerUuid);
 
     List<Manager> queryByShelter(String shelterUuid);
+
+    Manager queryManagerByMemberCode(String memberCode);
 }

@@ -22,6 +22,11 @@ public class SecurityApiController {
     public JwtToken loginUser(@RequestBody RequestLogin requestLogin) {
         return userTokenService.login(requestLogin.getMemberCode(), requestLogin.getPassword());
     }
+
+    @PostMapping("/managers")
+    public JwtToken loginManager(@RequestBody RequestLogin requestLogin) {
+        return userTokenService.login(requestLogin.getMemberCode(), requestLogin.getPassword());
+    }
     
 
 }

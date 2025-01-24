@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UserAdaptor {
 
-    User findById(Long userId);
+    User queryUserById(Long userId);
 
-    List<User> findAll();
+    List<User> queryAll();
 
-    User getUserByMemberCode(String memberCode);
+    User queryUserByMemberCode(String memberCode);
 }
