@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @DomainService
-@Transactional
 @RequiredArgsConstructor
 public class UserDomainServiceImpl implements UserDomainService{
 

@@ -1,10 +1,13 @@
-package com.caring.user_service.presentation.security.service.user;
+package com.caring.user_service.presentation.security.service.manager;
 
-import com.caring.user_service.presentation.security.vo.JwtToken;
 import com.caring.user_service.common.service.RedisService;
+import com.caring.user_service.domain.manager.business.adaptor.ManagerAdaptor;
+import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.user.business.adaptor.UserAdaptor;
-import com.caring.user_service.presentation.user.usecase.UserLoginUseCase;
 import com.caring.user_service.domain.user.entity.User;
+import com.caring.user_service.presentation.manager.usecase.ManagerLoginUseCase;
+import com.caring.user_service.presentation.security.vo.JwtToken;
+import com.caring.user_service.presentation.user.usecase.UserLoginUseCase;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -28,30 +31,29 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class UserTokenServiceImpl implements UserTokenService {
+public class ManagerTokenServiceImpl implements ManagerTokenService{
 
     private final Key key;
     private final Environment env;
     private final RedisService redisService;
-    private final UserAdaptor userAdaptor;
-    private final UserLoginUseCase userLoginUseCase;
+    private final ManagerAdaptor managerAdaptor;
+    private final ManagerLoginUseCase managerLoginUseCase;
 
-    public UserTokenServiceImpl(Environment environment,
-                                RedisService redisService,
-                                UserAdaptor userAdaptor,
-                                UserLoginUseCase userLoginUseCase) {
+    public ManagerTokenServiceImpl(Environment environment,
+                                   RedisService redisService,
+                                   ManagerAdaptor managerAdaptor,
+                                   ManagerLoginUseCase managerLoginUseCase) {
         byte[] keyBytes = Decoders.BASE64.decode(environment.getProperty("token.secret"));
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.env = environment;
         this.redisService = redisService;
-        this.userAdaptor = userAdaptor;
-        this.userLoginUseCase = userLoginUseCase;
+        this.managerAdaptor = managerAdaptor;
     }
     @Override
     public JwtToken login(String memberCode, String password) {
-        User user = userLoginUseCase.execute(memberCode, password);
+        Manager manager = managerLoginUseCase.execute(memberCode, password);
         return generateToken(
-                new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities())
+                new UsernamePasswordAuthenticationToken(manager, "", manager.getAuthorities())
         );
     }
 
@@ -65,9 +67,9 @@ public class UserTokenServiceImpl implements UserTokenService {
         // 3. 새로운 Authentication 객체 생성
         Claims claims = parseClaims(refreshToken);
         String memberCode = claims.getSubject();
-        User user = userAdaptor.queryUserByMemberCode(memberCode);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, "",
-                user.getAuthorities());
+        Manager manager = managerAdaptor.queryManagerByMemberCode(memberCode);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(manager, "",
+                manager.getAuthorities());
 
         return generateToken(authentication);
     }

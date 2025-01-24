@@ -9,24 +9,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Adaptor
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserAdaptorImpl implements UserAdaptor{
 
     private final UserRepository userRepository;
 
     @Override
-    public User findById(Long userId) {
+    public User queryUserById(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("not found user"));
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> queryAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public User getUserByMemberCode(String memberCode) {
+    public User queryUserByMemberCode(String memberCode) {
         return userRepository.findByMemberCode(memberCode).orElseThrow(() -> new RuntimeException("not found user"));
     }
 }
