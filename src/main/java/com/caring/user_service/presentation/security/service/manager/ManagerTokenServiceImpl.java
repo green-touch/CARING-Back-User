@@ -68,7 +68,7 @@ public class ManagerTokenServiceImpl implements ManagerTokenService{
         // 3. 새로운 Authentication 객체 생성
         Claims claims = parseClaims(refreshToken);
         String memberCode = claims.getSubject();
-        Manager manager = managerAdaptor.queryManagerByMemberCode(memberCode);
+        Manager manager = managerAdaptor.queryByMemberCode(memberCode);
         Authentication authentication = new UsernamePasswordAuthenticationToken(manager, "",
                 manager.getAuthorities());
 
