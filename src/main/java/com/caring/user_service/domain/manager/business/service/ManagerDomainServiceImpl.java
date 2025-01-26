@@ -10,6 +10,8 @@ import com.caring.user_service.domain.authority.repository.AuthorityRepository;
 import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.manager.repository.ManagerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.UUID;
 
@@ -21,6 +23,7 @@ import static com.caring.user_service.common.util.RandomNumberUtil.generateRando
 public class ManagerDomainServiceImpl implements ManagerDomainService{
 
     private final ManagerRepository managerRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Long registerManager(String name, String password, Authority authority) {
@@ -28,7 +31,7 @@ public class ManagerDomainServiceImpl implements ManagerDomainService{
                 .managerUuid(UUID.randomUUID().toString())
                 .memberCode(generateRandomMemberCode(MANAGER_MEMBER_CODE_PRESET))
                 .name(name)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .build();
         ManagerAuthority.builder()
                 .manager(newManager)
