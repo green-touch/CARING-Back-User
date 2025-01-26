@@ -1,5 +1,6 @@
 package com.caring.user_service.common.config;
 
+import com.caring.user_service.common.service.MicroServiceIpResolver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,8 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebConfig {
+
+    private final MicroServiceIpResolver microServiceIpResolver;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -63,13 +66,9 @@ public class WebConfig {
                             .requestMatchers(additionalSwaggerRequests()).permitAll()
                             .requestMatchers(authRelatedEndpoints()).access((authentication, request) -> {
                                 String clientIp = request.getRequest().getRemoteAddr();
+                                String gatewayIp = microServiceIpResolver.resolveGatewayIp();
                                 log.info("client ip is = {}", clientIp);
-
-                                // 허용된 IP 리스트
-                                String[] allowedIps = {"127.0.0.1","172.20.10.2", "0:0:0:0:0:0:0:1", "192.168.123.121"};
-
-                                // IP가 허용된 리스트에 포함되어 있는지 확인
-                                boolean isAllowed = Arrays.asList(allowedIps).contains(clientIp);
+                                boolean isAllowed = clientIp.equals(gatewayIp);
 
                                 return new AuthorizationDecision(isAllowed);
                             });
@@ -101,7 +100,8 @@ public class WebConfig {
 
     private RequestMatcher[] authRelatedEndpoints() {
         List<RequestMatcher> requestMatchers = List.of(
-                antMatcher("/v1/api/users")
+                antMatcher("/v1/api/users"),
+                antMatcher("/v1/api/managers")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
     }

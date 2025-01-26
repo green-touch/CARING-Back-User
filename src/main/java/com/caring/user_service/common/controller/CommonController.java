@@ -18,7 +18,8 @@ public class CommonController {
         return String.format("It's working in UserService"
                 + ", port(local.server.port)" + env.getProperty("local.server.port")
                 + ", port(server.port)" + env.getProperty("server.port")
-                + ", token.secret" + env.getProperty("token.secret")
+                + ", token.secret-user" + env.getProperty("token.secret-user")
+                + ", token.secret-manager" + env.getProperty("token.secret-manager")
                 + ", token expiration time" + env.getProperty("token.expiration_time"));
     }
 

@@ -40,9 +40,4 @@ public class ManagerAdaptorImpl implements ManagerAdaptor{
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public Manager queryManagerByMemberCode(String memberCode) {
-        return managerRepository.findByMemberCode(memberCode)
-                .orElseThrow(() -> new RuntimeException("not found manager"));
-    }
 }

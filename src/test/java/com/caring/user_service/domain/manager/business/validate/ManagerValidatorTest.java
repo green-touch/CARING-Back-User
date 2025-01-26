@@ -1,5 +1,6 @@
 package com.caring.user_service.domain.manager.business.validate;
 
+import com.caring.user_service.common.AuthorityDataInitializer;
 import com.caring.user_service.common.service.DatabaseCleanUp;
 import com.caring.user_service.domain.authority.business.adaptor.AuthorityAdaptor;
 import com.caring.user_service.domain.authority.entity.Authority;
@@ -17,10 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 @Slf4j
 @ActiveProfiles("test")
 @SpringBootTest
@@ -34,13 +33,16 @@ class ManagerValidatorTest {
     @Autowired
     AuthorityAdaptor authorityAdaptor;
     @Autowired
+    AuthorityDataInitializer authorityDataInitializer;
+    @Autowired
     DatabaseCleanUp databaseCleanUp;
 
     Long managerId;
 
     @BeforeEach
     void setup() {
-        Authority authority = authorityAdaptor.queryByManagerRoleKey(ManagerRole.MANAGE.getKey());
+        authorityDataInitializer.initAuthorityData();;
+        Authority authority = authorityAdaptor.queryByManagerRole(ManagerRole.MANAGE);
         managerId = managerDomainService.registerManager("name", "password", authority);
     }
 
@@ -50,7 +52,7 @@ class ManagerValidatorTest {
     }
 
     @Test
-    @Transactional
+    @Transactional(readOnly = true)
     @DisplayName("manager가 가진 authority에 super가 포함되어있는지 확인한다.")
     void isSuper(){
         //given

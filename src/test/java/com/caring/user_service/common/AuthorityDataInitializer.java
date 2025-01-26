@@ -15,7 +15,7 @@ public class AuthorityDataInitializer {
 
     private final AuthorityRepository authorityRepository;
 
-    @PostConstruct
+//    @PostConstruct
     public void initAuthorityData() {
         if (authorityRepository.count() == 0) {
             authorityRepository.save(Authority
