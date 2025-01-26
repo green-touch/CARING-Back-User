@@ -2,6 +2,7 @@ package com.caring.user_service.presentation.manager.usecase;
 
 import com.caring.user_service.common.annotation.UseCase;
 import com.caring.user_service.domain.authority.business.adaptor.AuthorityAdaptor;
+import com.caring.user_service.domain.authority.entity.Authority;
 import com.caring.user_service.domain.authority.entity.ManagerRole;
 import com.caring.user_service.domain.manager.business.service.ManagerDomainService;
 import com.caring.user_service.presentation.manager.vo.RequestManager;
@@ -17,10 +18,11 @@ public class RegisterSuperManagerUseCase {
     private final AuthorityAdaptor authorityAdaptor;
 
     public Long execute(RequestManager requestManager) {
+        Authority authority = authorityAdaptor.queryByManagerRole(ManagerRole.SUPER);
         return managerDomainService.registerManager(
                 requestManager.getName(),
                 requestManager.getPassword(),
-                authorityAdaptor.queryByManagerRoleKey(ManagerRole.SUPER.getKey())
+                authority
                 );
     }
 }
