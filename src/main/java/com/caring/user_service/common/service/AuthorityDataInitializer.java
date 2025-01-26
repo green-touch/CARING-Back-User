@@ -5,6 +5,7 @@ import com.caring.user_service.domain.authority.entity.ManagerRole;
 import com.caring.user_service.domain.authority.repository.AuthorityRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 
 @Component
+@Profile("!test")
 @RequiredArgsConstructor
 public class AuthorityDataInitializer {
 

@@ -18,11 +18,10 @@ public class RegisterSuperManagerUseCase {
     private final AuthorityAdaptor authorityAdaptor;
 
     public Long execute(RequestManager requestManager) {
-        Authority authority = authorityAdaptor.queryByManagerRole(ManagerRole.SUPER);
         return managerDomainService.registerManager(
                 requestManager.getName(),
                 requestManager.getPassword(),
-                authority
+                authorityAdaptor.queryByManagerRole(ManagerRole.SUPER)
                 );
     }
 }
