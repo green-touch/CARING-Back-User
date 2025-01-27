@@ -6,7 +6,10 @@ import com.caring.user_service.domain.authority.business.adaptor.AuthorityAdapto
 import com.caring.user_service.domain.authority.entity.Authority;
 import com.caring.user_service.domain.authority.entity.ManagerRole;
 import com.caring.user_service.domain.manager.entity.Manager;
+import com.caring.user_service.domain.manager.entity.Submission;
 import com.caring.user_service.domain.manager.repository.ManagerRepository;
+import com.caring.user_service.domain.shelter.business.service.ShelterDomainService;
+import com.caring.user_service.domain.shelter.entity.Shelter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +32,7 @@ class ManagerDomainServiceTest {
     @Autowired
     ManagerDomainService managerDomainService;
     @Autowired
-    ManagerRepository managerRepository;
+    ShelterDomainService shelterDomainService;
     @Autowired
     AuthorityAdaptor authorityAdaptor;
     @Autowired
@@ -56,12 +59,25 @@ class ManagerDomainServiceTest {
         String password = "password";
         Authority superAuthority = authorityAdaptor.queryByManagerRole(ManagerRole.SUPER);
         //when
-        Long managerId = managerDomainService.registerManager(name, password, superAuthority);
+        Manager findManager = managerDomainService.registerManager(name, password, superAuthority);
         //then
-        Optional<Manager> findManager = managerRepository.findById(managerId);
-        assertThat(findManager).isPresent();
-        assertThat(findManager.get().getName()).isEqualTo(name);
-        assertThat(findManager.get().getPassword()).isEqualTo(password);
-        log.info("findManager.memberCode = {}", findManager.get().getMemberCode());
+        assertThat(findManager.getName()).isEqualTo(name);
+        assertThat(findManager.getPassword()).isEqualTo(password);
+        log.info("findManager.memberCode = {}", findManager.getMemberCode());
     }
+
+    @Test
+    @Transactional
+    @DisplayName("매니저를 신청합니다. 이때 super등록과는 다르게 서버에 존재하는 보호소의 랜덤 uuid를 같이 저장합니다.")
+    void applyManager() {
+        //given
+        Shelter shelter = shelterDomainService.registerShelter("shelter", "location");
+        //when
+        Submission submission = managerDomainService.applyManager("name", "password", shelter.getShelterUuid());
+        //then
+        assertThat(submission.getShelterUuid()).isEqualTo(shelter.getShelterUuid());
+        assertThat(submission.getName()).isEqualTo("name");
+
+    }
+
 }

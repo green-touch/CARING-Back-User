@@ -22,9 +22,8 @@ public class RegisterShelterUseCase {
     private final ShelterDomainService shelterDomainService;
 
     public Long execute(RequestShelter requestShelter, String memberCode) {
-        log.info("memberCode:{}", memberCode);
         Manager manager = managerAdaptor.queryByMemberCode(memberCode);
         managerValidator.isSuper(manager);
-        return shelterDomainService.registerShelter(requestShelter.getName(), requestShelter.getLocation());
+        return shelterDomainService.registerShelter(requestShelter.getName(), requestShelter.getLocation()).getId();
     }
 }

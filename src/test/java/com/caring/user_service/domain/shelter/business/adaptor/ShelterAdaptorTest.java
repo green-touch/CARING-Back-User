@@ -40,7 +40,7 @@ class ShelterAdaptorTest {
         //given
         String name = "shelter";
         String location = "location";
-        Long shelterId = shelterDomainService.registerShelter(name, location);
+        Long shelterId = shelterDomainService.registerShelter(name, location).getId();
         Shelter shelter = shelterRepository.findById(shelterId).orElseThrow();
         //when
         Shelter findShelter = shelterAdaptor.queryByShelterUuid(shelter.getShelterUuid());

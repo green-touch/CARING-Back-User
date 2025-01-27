@@ -69,10 +69,10 @@ class RegisterShelterUseCaseTest {
                 .build();
 
         Authority superAuthority = authorityAdaptor.queryByManagerRole(ManagerRole.SUPER);
-        Long managerId = managerDomainService.registerManager("name", "password", superAuthority);
+        Long managerId = managerDomainService.registerManager("name", "password", superAuthority).getId();
         Manager manager = managerRepository.findById(managerId).orElseThrow();
         //when
-        Long shelterId = registerShelterUseCase.execute(request, manager);
+        Long shelterId = registerShelterUseCase.execute(request, manager.getMemberCode());
         //then
         Optional<Shelter> findShelter = shelterRepository.findById(shelterId);
         assertThat(findShelter).isPresent();

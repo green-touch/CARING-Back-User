@@ -43,7 +43,7 @@ class ManagerValidatorTest {
     void setup() {
         authorityDataInitializer.initAuthorityData();;
         Authority authority = authorityAdaptor.queryByManagerRole(ManagerRole.MANAGE);
-        managerId = managerDomainService.registerManager("name", "password", authority);
+        managerId = managerDomainService.registerManager("name", "password", authority).getId();
     }
 
     @AfterEach
