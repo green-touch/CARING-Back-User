@@ -16,7 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -25,7 +24,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class WebConfig {
+public class SecurityConfig {
 
     private final MicroServiceIpResolver microServiceIpResolver;
 
@@ -101,7 +100,8 @@ public class WebConfig {
     private RequestMatcher[] authRelatedEndpoints() {
         List<RequestMatcher> requestMatchers = List.of(
                 antMatcher("/v1/api/users"),
-                antMatcher("/v1/api/managers")
+                antMatcher("/v1/api/managers"),
+                antMatcher("/v1/api/shelters/**")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
     }

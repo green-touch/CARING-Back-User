@@ -59,7 +59,8 @@ class RegisterShelterUseCaseTest {
 
     @Test
     @Transactional
-    @DisplayName("manager와 shelter request를 통하여 서버에 shelter를 등록합니다. 이때 등록자는 SUPER 권한을 가지고 있어야합니다.")
+    @DisplayName("manager shelter request 통하여 서버에 shelter를 등록합니다. " +
+            "이때 등록자는 SUPER 권한을 가지고 있어야합니다.")
     void setRegisterShelterUseCase(){
         //given
         RequestShelter request = RequestShelter.builder()
