@@ -23,7 +23,9 @@ public class RegisterShelterUseCase {
 
     public Long execute(RequestShelter requestShelter, String memberCode) {
         Manager manager = managerAdaptor.queryByMemberCode(memberCode);
-        managerValidator.isSuper(manager);
+        if (!managerValidator.isSuper(manager)) {
+            throw new RuntimeException("not authorization");
+        }
         return shelterDomainService.registerShelter(requestShelter.getName(), requestShelter.getLocation()).getId();
     }
 }

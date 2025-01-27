@@ -1,5 +1,6 @@
 package com.caring.user_service.presentation.manager.controller;
 
+import com.caring.user_service.common.annotation.MemberCode;
 import com.caring.user_service.presentation.manager.usecase.ApplyManagerUseCase;
 import com.caring.user_service.presentation.manager.usecase.GetPendingSubmissionsUseCase;
 import com.caring.user_service.presentation.manager.usecase.RegisterSuperManagerUseCase;
@@ -18,6 +19,7 @@ public class ManagerApiController {
     private final RegisterSuperManagerUseCase registerSuperManagerUseCase;
     private final ApplyManagerUseCase applyManagerUseCase;
     private final GetPendingSubmissionsUseCase getPendingSubmissionUseCase;
+    private final PermissionRegisteringManagerUseCase permissionRegisteringManagerUseCase;
 
     @PostMapping("/super")
     public Long registerSuperManager(@RequestBody RequestManager requestManager) {
@@ -33,5 +35,11 @@ public class ManagerApiController {
     @GetMapping("/submissions")
     public List<ResponseSubmission> getPendingSubmissions() {
         return getPendingSubmissionUseCase.execute();
+    }
+
+    @GetMapping("/permission/submissions/{uuid}")
+    public Long permissionRegisteringManager(@PathVariable String uuid,
+                                             @MemberCode String memberCode) {
+        return permissionRegisteringManagerUseCase.execute(uuid, memberCode);
     }
 }
