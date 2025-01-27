@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -79,7 +80,9 @@ public class SecurityConfig {
                 antMatcher("/health_check"),
                 antMatcher("/actuator/**"),
                 antMatcher("/welcome"),
-                antMatcher("/v1/api/tokens/**")
+                antMatcher("/v1/api/tokens/**"),
+                antMatcher(HttpMethod.POST, "/v1/api/managers/super"),
+                antMatcher(HttpMethod.POST, "/v1/api/managers/submissions/shelters/{uuid}")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
     }
@@ -100,8 +103,9 @@ public class SecurityConfig {
     private RequestMatcher[] authRelatedEndpoints() {
         List<RequestMatcher> requestMatchers = List.of(
                 antMatcher("/v1/api/users"),
-                antMatcher("/v1/api/managers"),
-                antMatcher("/v1/api/shelters/**")
+                antMatcher("/v1/api/shelters/**"),
+                antMatcher(HttpMethod.GET, "/v1/api/managers/submissions"),
+                antMatcher(HttpMethod.POST, "/v1/api/managers/submissions/{uuid}/permission")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
     }
