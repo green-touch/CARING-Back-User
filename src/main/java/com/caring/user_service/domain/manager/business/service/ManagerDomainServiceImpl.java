@@ -52,7 +52,7 @@ public class ManagerDomainServiceImpl implements ManagerDomainService{
         Submission application = Submission.builder()
                 .submissionUuid(UUID.randomUUID().toString())
                 .name(name)
-                .password(passwordEncoder.encode(password))
+                .password(password)
                 .shelterUuid(shelterUuid)
                 .status(APPLY)
                 .build();
