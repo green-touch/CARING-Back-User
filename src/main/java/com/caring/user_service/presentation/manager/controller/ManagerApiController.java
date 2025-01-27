@@ -27,18 +27,19 @@ public class ManagerApiController {
         return registerSuperManagerUseCase.execute(requestManager);
     }
 
-    @PostMapping("/submissions/shelters/{shelterUuid}")
-    public Long ApplyManager(@PathVariable String shelterUuid,
+    @PostMapping("/submissions/shelters/{uuid}")
+    public Long ApplyManager(@PathVariable String uuid,
                              @RequestBody RequestManager requestManager) {
-        return applyManagerUseCase.execute(requestManager, shelterUuid);
+        return applyManagerUseCase.execute(requestManager, uuid);
     }
 
     @GetMapping("/submissions")
+    //TODO authorization
     public List<ResponseSubmission> getPendingSubmissions() {
         return getPendingSubmissionUseCase.execute();
     }
 
-    @GetMapping("/submissions/{uuid}/permission")
+    @PostMapping("/submissions/{uuid}/permission")
     public Long permissionRegisteringManager(@PathVariable String uuid,
                                              @MemberCode String memberCode) {
         return permissionRegisteringManagerUseCase.execute(uuid, memberCode);
