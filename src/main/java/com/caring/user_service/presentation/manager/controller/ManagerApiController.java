@@ -1,12 +1,10 @@
 package com.caring.user_service.presentation.manager.controller;
 
+import com.caring.user_service.presentation.manager.usecase.ApplyManagerUseCase;
 import com.caring.user_service.presentation.manager.usecase.RegisterSuperManagerUseCase;
 import com.caring.user_service.presentation.manager.vo.RequestManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,9 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class ManagerApiController {
 
     private final RegisterSuperManagerUseCase registerSuperManagerUseCase;
+    private final ApplyManagerUseCase applyManagerUseCase;
 
-    @PostMapping
+    @PostMapping("/super")
     public Long registerSuperManager(@RequestBody RequestManager requestManager) {
         return registerSuperManagerUseCase.execute(requestManager);
+    }
+
+    @PostMapping("/submission/shelters/{shelterUuid}")
+    public Long ApplyManager(@PathVariable String shelterUuid,
+                             @RequestBody RequestManager requestManager) {
+        return applyManagerUseCase.execute(requestManager, shelterUuid);
     }
 }
