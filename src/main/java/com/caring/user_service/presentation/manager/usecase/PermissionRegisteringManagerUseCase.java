@@ -22,16 +22,20 @@ public class PermissionRegisteringManagerUseCase {
     private final AuthorityAdaptor authorityAdaptor;
 
     public Long execute(String uuid, String memberCode) {
+        // check authorization
         Manager manager = managerAdaptor.queryByMemberCode(memberCode);
         if (!managerValidator.isSuper(manager)) {
             throw new RuntimeException("not authorization");
         }
+        // register manager
         Submission submission = managerAdaptor.querySubmissionByUuid(uuid);
         Manager insertManager = managerDomainService.registerManager(
                 submission.getName(),
                 submission.getPassword(),
                 authorityAdaptor.queryByManagerRole(ManagerRole.MANAGE)
         );
+        // remove submission
+        managerDomainService.removeSubmission(uuid);
         return insertManager.getId();
     }
 }

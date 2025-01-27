@@ -7,7 +7,9 @@ import com.caring.user_service.domain.authority.entity.Authority;
 import com.caring.user_service.domain.authority.entity.ManagerRole;
 import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.manager.entity.Submission;
+import com.caring.user_service.domain.manager.entity.SubmissionStatus;
 import com.caring.user_service.domain.manager.repository.ManagerRepository;
+import com.caring.user_service.domain.manager.repository.SubmissionRepository;
 import com.caring.user_service.domain.shelter.business.service.ShelterDomainService;
 import com.caring.user_service.domain.shelter.entity.Shelter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 
+import static com.caring.user_service.domain.manager.entity.SubmissionStatus.APPLY;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
@@ -37,6 +41,8 @@ class ManagerDomainServiceTest {
     AuthorityAdaptor authorityAdaptor;
     @Autowired
     AuthorityDataInitializer authorityDataInitializer;
+    @Autowired
+    SubmissionRepository submissionRepository;
     @Autowired
     DatabaseCleanUp databaseCleanUp;
 
@@ -78,6 +84,21 @@ class ManagerDomainServiceTest {
         assertThat(submission.getShelterUuid()).isEqualTo(shelter.getShelterUuid());
         assertThat(submission.getName()).isEqualTo("name");
 
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("submission을 지웁니다.(보통 매니저 신청 허가에 의해서 사용됩니다.)")
+    void removeSubmission(){
+        //given
+        Shelter shelter = shelterDomainService.registerShelter("shelter", "location");
+        Submission submission = managerDomainService
+                .applyManager("name", "password", shelter.getShelterUuid());
+        assertThat(submission.getId()).isNotNull();
+        //when
+        managerDomainService.removeSubmission(submission.getSubmissionUuid());
+        //then
+        assertThat(submissionRepository.findAll().size()).isZero();
     }
 
 }

@@ -59,4 +59,9 @@ public class ManagerDomainServiceImpl implements ManagerDomainService{
 
         return submissionRepository.save(application);
     }
+
+    @Override
+    public void removeSubmission(String submissionUuid) {
+        submissionRepository.deleteBySubmissionUuid(submissionUuid);
+    }
 }

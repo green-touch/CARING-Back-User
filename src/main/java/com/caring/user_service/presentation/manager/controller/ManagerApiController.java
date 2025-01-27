@@ -3,6 +3,7 @@ package com.caring.user_service.presentation.manager.controller;
 import com.caring.user_service.common.annotation.MemberCode;
 import com.caring.user_service.presentation.manager.usecase.ApplyManagerUseCase;
 import com.caring.user_service.presentation.manager.usecase.GetPendingSubmissionsUseCase;
+import com.caring.user_service.presentation.manager.usecase.PermissionRegisteringManagerUseCase;
 import com.caring.user_service.presentation.manager.usecase.RegisterSuperManagerUseCase;
 import com.caring.user_service.presentation.manager.vo.RequestManager;
 import com.caring.user_service.presentation.manager.vo.ResponseSubmission;
@@ -26,7 +27,7 @@ public class ManagerApiController {
         return registerSuperManagerUseCase.execute(requestManager);
     }
 
-    @PostMapping("/submission/shelters/{shelterUuid}")
+    @PostMapping("/submissions/shelters/{shelterUuid}")
     public Long ApplyManager(@PathVariable String shelterUuid,
                              @RequestBody RequestManager requestManager) {
         return applyManagerUseCase.execute(requestManager, shelterUuid);
@@ -37,7 +38,7 @@ public class ManagerApiController {
         return getPendingSubmissionUseCase.execute();
     }
 
-    @GetMapping("/permission/submissions/{uuid}")
+    @GetMapping("/submissions/{uuid}/permission")
     public Long permissionRegisteringManager(@PathVariable String uuid,
                                              @MemberCode String memberCode) {
         return permissionRegisteringManagerUseCase.execute(uuid, memberCode);
