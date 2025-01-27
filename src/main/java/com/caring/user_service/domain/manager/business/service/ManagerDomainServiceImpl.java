@@ -9,6 +9,7 @@ import com.caring.user_service.domain.authority.entity.ManagerRole;
 import com.caring.user_service.domain.authority.repository.AuthorityRepository;
 import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.manager.entity.Submission;
+import com.caring.user_service.domain.manager.entity.SubmissionStatus;
 import com.caring.user_service.domain.manager.repository.ManagerRepository;
 import com.caring.user_service.domain.manager.repository.SubmissionRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.UUID;
 
 import static com.caring.user_service.common.consts.StaticVariable.MANAGER_MEMBER_CODE_PRESET;
 import static com.caring.user_service.common.util.RandomNumberUtil.generateRandomMemberCode;
+import static com.caring.user_service.domain.manager.entity.SubmissionStatus.APPLY;
 
 @DomainService
 @RequiredArgsConstructor
@@ -48,9 +50,11 @@ public class ManagerDomainServiceImpl implements ManagerDomainService{
     @Override
     public Submission applyManager(String name, String password, String shelterUuid) {
         Submission application = Submission.builder()
+                .submissionUuid(UUID.randomUUID().toString())
                 .name(name)
                 .password(passwordEncoder.encode(password))
                 .shelterUuid(shelterUuid)
+                .status(APPLY)
                 .build();
 
         return submissionRepository.save(application);
