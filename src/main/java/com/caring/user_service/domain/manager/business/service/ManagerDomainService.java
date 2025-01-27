@@ -10,4 +10,6 @@ public interface ManagerDomainService {
     Manager registerManager(String name, String password, Authority authority);
 
     Submission applyManager(String name, String password, String shelterUuid);
+
+    void removeSubmission(String submissionUuid);
 }

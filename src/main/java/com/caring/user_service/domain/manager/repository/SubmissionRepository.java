@@ -11,4 +11,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
     List<Submission> findByStatus(SubmissionStatus status);
 
     Optional<Submission> findBySubmissionUuid(String submissionUuid);
+
+    void deleteBySubmissionUuid(String submissionUuid);
 }
