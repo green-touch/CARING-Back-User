@@ -19,9 +19,15 @@ public class Submission extends BaseTimeEntity {
     @Column(name = "submission_id")
     private Long id;
 
+    @Column(unique = true)
+    private String submissionUuid;
+
     private String name;
 
     private String password;
 
     private String shelterUuid;
+
+    @Enumerated(EnumType.STRING)
+    private SubmissionStatus status;
 }
