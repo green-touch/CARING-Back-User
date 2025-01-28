@@ -2,7 +2,10 @@ package com.caring.user_service.domain.manager.business.adaptor;
 
 import com.caring.user_service.common.annotation.Adaptor;
 import com.caring.user_service.domain.manager.entity.Manager;
+import com.caring.user_service.domain.manager.entity.Submission;
+import com.caring.user_service.domain.manager.entity.SubmissionStatus;
 import com.caring.user_service.domain.manager.repository.ManagerRepository;
+import com.caring.user_service.domain.manager.repository.SubmissionRepository;
 import com.caring.user_service.domain.shelter.entity.Shelter;
 import com.caring.user_service.domain.shelter.entity.ShelterStaff;
 import com.caring.user_service.domain.shelter.repository.ShelterRepository;
@@ -18,6 +21,7 @@ public class ManagerAdaptorImpl implements ManagerAdaptor{
 
     private final ManagerRepository managerRepository;
     private final ShelterStaffRepository shelterStaffRepository;
+    private final SubmissionRepository submissionRepository;
 
     @Override
     public Manager queryByMemberCode(String memberCode) {
@@ -39,4 +43,16 @@ public class ManagerAdaptorImpl implements ManagerAdaptor{
                 .map(shelterStaff -> shelterStaff.getManager())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Submission querySubmissionByUuid(String submissionUuid) {
+        return submissionRepository.findBySubmissionUuid(submissionUuid)
+                .orElseThrow(() -> new RuntimeException("not found submission"));
+    }
+
+    @Override
+    public List<Submission> querySubmissionsByStatus(SubmissionStatus status) {
+        return submissionRepository.findByStatus(status);
+    }
+
 }

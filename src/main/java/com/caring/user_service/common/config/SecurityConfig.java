@@ -1,9 +1,11 @@
 package com.caring.user_service.common.config;
 
+import com.caring.user_service.common.service.MicroServiceIpResolver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -24,7 +25,9 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class WebConfig {
+public class SecurityConfig {
+
+    private final MicroServiceIpResolver microServiceIpResolver;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -63,13 +66,9 @@ public class WebConfig {
                             .requestMatchers(additionalSwaggerRequests()).permitAll()
                             .requestMatchers(authRelatedEndpoints()).access((authentication, request) -> {
                                 String clientIp = request.getRequest().getRemoteAddr();
+                                String gatewayIp = microServiceIpResolver.resolveGatewayIp();
                                 log.info("client ip is = {}", clientIp);
-
-                                // 허용된 IP 리스트
-                                String[] allowedIps = {"127.0.0.1","172.20.10.2", "0:0:0:0:0:0:0:1", "192.168.123.121"};
-
-                                // IP가 허용된 리스트에 포함되어 있는지 확인
-                                boolean isAllowed = Arrays.asList(allowedIps).contains(clientIp);
+                                boolean isAllowed = clientIp.equals(gatewayIp);
 
                                 return new AuthorizationDecision(isAllowed);
                             });
@@ -81,7 +80,9 @@ public class WebConfig {
                 antMatcher("/health_check"),
                 antMatcher("/actuator/**"),
                 antMatcher("/welcome"),
-                antMatcher("/v1/api/tokens/**")
+                antMatcher("/v1/api/tokens/**"),
+                antMatcher(HttpMethod.POST, "/v1/api/managers/super"),
+                antMatcher(HttpMethod.POST, "/v1/api/managers/submissions/shelters/{uuid}")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
     }
@@ -101,7 +102,10 @@ public class WebConfig {
 
     private RequestMatcher[] authRelatedEndpoints() {
         List<RequestMatcher> requestMatchers = List.of(
-                antMatcher("/v1/api/users")
+                antMatcher("/v1/api/users"),
+                antMatcher("/v1/api/shelters/**"),
+                antMatcher(HttpMethod.GET, "/v1/api/managers/submissions"),
+                antMatcher(HttpMethod.POST, "/v1/api/managers/submissions/{uuid}/permission")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
     }

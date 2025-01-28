@@ -40,7 +40,7 @@ public class UserTokenServiceImpl implements UserTokenService {
                                 RedisService redisService,
                                 UserAdaptor userAdaptor,
                                 UserLoginUseCase userLoginUseCase) {
-        byte[] keyBytes = Decoders.BASE64.decode(environment.getProperty("token.secret"));
+        byte[] keyBytes = Decoders.BASE64.decode(environment.getProperty("token.secret-user"));
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.env = environment;
         this.redisService = redisService;
@@ -65,7 +65,7 @@ public class UserTokenServiceImpl implements UserTokenService {
         // 3. 새로운 Authentication 객체 생성
         Claims claims = parseClaims(refreshToken);
         String memberCode = claims.getSubject();
-        User user = userAdaptor.getUserByMemberCode(memberCode);
+        User user = userAdaptor.queryUserByMemberCode(memberCode);
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, "",
                 user.getAuthorities());
 

@@ -1,5 +1,6 @@
 package com.caring.user_service.presentation.security.controller;
 
+import com.caring.user_service.presentation.security.service.manager.ManagerTokenService;
 import com.caring.user_service.presentation.security.service.user.UserTokenService;
 import com.caring.user_service.presentation.security.vo.JwtToken;
 import com.caring.user_service.presentation.security.vo.RequestLogin;
@@ -17,10 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class SecurityApiController {
 
     private final UserTokenService userTokenService;
+    private final ManagerTokenService managerTokenService;
 
     @PostMapping("/users")
     public JwtToken loginUser(@RequestBody RequestLogin requestLogin) {
         return userTokenService.login(requestLogin.getMemberCode(), requestLogin.getPassword());
+    }
+
+    @PostMapping("/managers")
+    public JwtToken loginManager(@RequestBody RequestLogin requestLogin) {
+        return managerTokenService.login(requestLogin.getMemberCode(), requestLogin.getPassword());
     }
     
 
