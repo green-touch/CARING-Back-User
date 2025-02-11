@@ -30,9 +30,10 @@ public class UserApiController {
         return readAllUserUseCase.execute();
     }
 
-    @PostMapping
-    public Long registerUserByManager(@RequestBody RequestUser requestUser,
+    @PostMapping("/shelters/{shelterUuid}")
+    public Long registerUserByManager(@PathVariable String shelterUuid,
+                                      @RequestBody RequestUser requestUser,
                                       @MemberCode String memberCode) {
-        return registerUserByManagerUseCase.execute(requestUser, memberCode);
+        return registerUserByManagerUseCase.execute(requestUser, memberCode, shelterUuid);
     }
 }
