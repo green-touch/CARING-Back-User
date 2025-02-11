@@ -23,7 +23,7 @@ public class UserDomainServiceImpl implements UserDomainService{
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Long registerUser(String password, String name) {
+    public User registerUser(String password, String name) {
         User newUser = User.builder()
                 .memberCode(generateRandomMemberCode(USER_MEMBER_CODE_PRESET))
                 .userUuid(UUID.randomUUID().toString())
@@ -31,6 +31,6 @@ public class UserDomainServiceImpl implements UserDomainService{
                 .password(passwordEncoder.encode(password))
                 .name(name)
                 .build();
-        return userRepository.save(newUser).getId();
+        return userRepository.save(newUser);
     }
 }

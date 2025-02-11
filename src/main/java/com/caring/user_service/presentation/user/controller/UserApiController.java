@@ -1,6 +1,8 @@
 package com.caring.user_service.presentation.user.controller;
 
+import com.caring.user_service.common.annotation.MemberCode;
 import com.caring.user_service.presentation.user.usecase.ReadAllUserUseCase;
+import com.caring.user_service.presentation.user.usecase.RegisterUserByManagerUseCase;
 import com.caring.user_service.presentation.user.usecase.RegisterUserUseCase;
 import com.caring.user_service.presentation.user.vo.RequestUser;
 import com.caring.user_service.presentation.user.vo.ResponseUser;
@@ -16,6 +18,7 @@ public class UserApiController {
 
     private final RegisterUserUseCase registerUserUseCase;
     private final ReadAllUserUseCase readAllUserUseCase;
+    private final RegisterUserByManagerUseCase registerUserByManagerUseCase;
 
     @PostMapping
     public Long registerUser(@RequestBody RequestUser requestUser) {
@@ -25,5 +28,11 @@ public class UserApiController {
     @GetMapping
     public List<ResponseUser> getAllUser() {
         return readAllUserUseCase.execute();
+    }
+
+    @PostMapping
+    public Long registerUserByManager(@RequestBody RequestUser requestUser,
+                                      @MemberCode String memberCode) {
+        return registerUserByManagerUseCase.execute(requestUser, memberCode);
     }
 }
