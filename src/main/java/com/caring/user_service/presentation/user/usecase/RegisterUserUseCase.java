@@ -13,6 +13,6 @@ public class RegisterUserUseCase {
     private final UserDomainService userDomainService;
 
     public Long execute(RequestUser requestUser) {
-        return userDomainService.registerUser(requestUser.getPassword(), requestUser.getName());
+        return userDomainService.registerUser(requestUser.getPassword(), requestUser.getName()).getId();
     }
 }

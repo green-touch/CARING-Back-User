@@ -28,7 +28,7 @@ public class ManagerApiController {
     }
 
     @PostMapping("/submissions/shelters/{uuid}")
-    public Long ApplyManager(@PathVariable String uuid,
+    public Long applyManager(@PathVariable String uuid,
                              @RequestBody RequestManager requestManager) {
         return applyManagerUseCase.execute(requestManager, uuid);
     }
@@ -44,4 +44,6 @@ public class ManagerApiController {
                                              @MemberCode String memberCode) {
         return permissionRegisteringManagerUseCase.execute(uuid, memberCode);
     }
+
+    //TODO reject submission
 }
