@@ -19,6 +19,8 @@ public class UserApiController {
     private final RegisterUserUseCase registerUserUseCase;
     private final ReadAllUserUseCase readAllUserUseCase;
     private final RegisterUserByManagerUseCase registerUserByManagerUseCase;
+//    private final AddUserInManagerGroupUseCase addUserInManagerGroupUseCase;
+//    private final GetUserProfileUseCase getUserProfileUseCase;
 
     @PostMapping
     public Long registerUser(@RequestBody RequestUser requestUser) {
@@ -36,4 +38,17 @@ public class UserApiController {
                                       @MemberCode String memberCode) {
         return registerUserByManagerUseCase.execute(requestUser, memberCode, shelterUuid);
     }
+
+//    @PostMapping("/{userUuid}/managers/{managerUuid}")
+//    public Long addUserInManagerGroup(@PathVariable String userUuid,
+//                                      @PathVariable String managerUuid,
+//                                      @MemberCode String memberCode) {
+//        return addUserInManagerGroupUseCase.execute(userUuid, managerUuid, memberCode);
+//    }
+//
+//    @GetMapping("/{userUuid}")
+//    public ResponseUser getUserProfile(@PathVariable String userUuid,
+//                                       @MemberCode String memberCode) {
+//        return getUserProfileUseCase.execute(userUuid, memberCode);
+//    }
 }
