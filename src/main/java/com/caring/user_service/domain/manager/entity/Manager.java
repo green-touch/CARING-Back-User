@@ -36,6 +36,7 @@ public class Manager extends BaseTimeEntity implements UserDetails {
 
     private String password;
     private String name;
+    private String shelterUuid;
 
     @Builder.Default
     @OneToMany(mappedBy = "manager", cascade = CascadeType.PERSIST)
@@ -58,5 +59,9 @@ public class Manager extends BaseTimeEntity implements UserDetails {
     @Override
     public String getUsername() {
         return this.memberCode;
+    }
+
+    public void groupedInShelter(String shelterUuid) {
+        this.shelterUuid = shelterUuid;
     }
 }

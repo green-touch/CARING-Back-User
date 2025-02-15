@@ -7,9 +7,7 @@ import com.caring.user_service.domain.manager.entity.SubmissionStatus;
 import com.caring.user_service.domain.manager.repository.ManagerRepository;
 import com.caring.user_service.domain.manager.repository.SubmissionRepository;
 import com.caring.user_service.domain.shelter.entity.Shelter;
-import com.caring.user_service.domain.shelter.entity.ShelterStaff;
 import com.caring.user_service.domain.shelter.repository.ShelterRepository;
-import com.caring.user_service.domain.shelter.repository.ShelterStaffRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 @Slf4j
 @ActiveProfiles("test")
 @SpringBootTest
@@ -38,8 +36,6 @@ class ManagerAdaptorTest {
     ShelterRepository shelterRepository;
     @Autowired
     SubmissionRepository submissionRepository;
-    @Autowired
-    ShelterStaffRepository shelterStaffRepository;
     @Autowired
     DatabaseCleanUp databaseCleanUp;
 
@@ -63,20 +59,13 @@ class ManagerAdaptorTest {
                 .build();
         managerRepository.saveAll(List.of(manager1, manager2));
         shelter = Shelter.builder()
-                .shelterUuid(UUID.randomUUID().toString())
                 .name("shelter")
                 .location("shelter")
+                .shelterUuid(UUID.randomUUID().toString())
                 .build();
         shelterRepository.save(shelter);
-        ShelterStaff shelterStaff_1 = ShelterStaff.builder()
-                .shelter(shelter)
-                .manager(manager1)
-                .build();
-        ShelterStaff shelterStaff_2 = ShelterStaff.builder()
-                .shelter(shelter)
-                .manager(manager2)
-                .build();
-        shelterStaffRepository.saveAll(List.of(shelterStaff_1, shelterStaff_2));
+        manager1.groupedInShelter(shelter.getShelterUuid());
+        manager2.groupedInShelter(shelter.getShelterUuid());
     }
 
     @AfterEach

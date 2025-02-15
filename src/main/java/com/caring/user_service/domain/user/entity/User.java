@@ -34,6 +34,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     private String password;
     private String name;
+    private String shelterUuid;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -43,5 +44,9 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Override
     public String getUsername() {
         return this.getMemberCode();
+    }
+
+    public void groupedInShelter(String shelterUuid) {
+        this.shelterUuid = shelterUuid;
     }
 }

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: test
   cloud:
     config:
       name: user-service
@@ -8,7 +8,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: test
   cloud:
     config:
       uri: http://127.0.0.1:8888
