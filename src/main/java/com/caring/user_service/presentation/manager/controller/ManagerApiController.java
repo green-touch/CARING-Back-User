@@ -29,12 +29,12 @@ public class ManagerApiController {
         return getPendingSubmissionUseCase.execute();
     }
 
-    @PostMapping("/submissions/{uuid}/permission")
-    public Long permissionRegisteringManager(@PathVariable String uuid,
+    @PostMapping("/submissions/{submissionUuid}/permission")
+    public Long permissionRegisteringManager(@PathVariable String submissionUuid,
                                              @ManagerCode String memberCode,
                                              @ManagerRoles List<String> roles) {
         RoleUtil.containManagerRole(ManagerRole.SUPER, roles);
-        return permissionRegisteringManagerUseCase.execute(uuid, memberCode);
+        return permissionRegisteringManagerUseCase.execute(submissionUuid, memberCode);
     }
 
     //TODO reject submission

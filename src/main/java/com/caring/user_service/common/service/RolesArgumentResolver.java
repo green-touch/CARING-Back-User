@@ -2,6 +2,7 @@ package com.caring.user_service.common.service;
 
 import com.caring.user_service.common.annotation.ManagerRoles;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -14,12 +15,14 @@ import java.util.List;
 
 import static com.caring.user_service.common.consts.StaticVariable.REQUEST_HEADER_ROLES;
 
+@Slf4j
 public class RolesArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.getParameterAnnotation(ManagerRoles.class) != null &&
-                (parameter.getParameterType().equals(String.class) || parameter.getParameterType().equals(List.class));
+                (parameter.getParameterType().equals(String.class) || parameter.getParameterType().equals(List.class)
+                        || parameter.getParameterType().equals(List.class));
     }
 
     @Override
