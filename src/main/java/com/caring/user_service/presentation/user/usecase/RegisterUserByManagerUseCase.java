@@ -17,19 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RegisterUserByManagerUseCase {
 
-    private final ManagerAdaptor managerAdaptor;
-    private final ManagerValidator managerValidator;
     private final UserDomainService userDomainService;
     private final ShelterAdaptor shelterAdaptor;
 
-    public Long execute(RequestUser requestUser, String memberCode, String shelterUuid) {
-        Manager manager = managerAdaptor.queryByMemberCode(memberCode);
-        if (!managerValidator.isSuper(manager)) {
-            throw new RuntimeException("is not super manager");
-        }
+    public Long execute(RequestUser requestUser, String shelterUuid) {
         User user = userDomainService.registerUser(requestUser.getPassword(), requestUser.getName());
         Shelter shelter = shelterAdaptor.queryByShelterUuid(shelterUuid);
-        userDomainService.addUserInShelterGroup(shelter, user);
+        userDomainService.addUserInShelterGroup(user, shelter);
         return user.getId();
     }
 }

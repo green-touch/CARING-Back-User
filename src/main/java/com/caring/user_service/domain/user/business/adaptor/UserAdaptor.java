@@ -11,4 +11,6 @@ public interface UserAdaptor {
     List<User> queryAll();
 
     User queryUserByMemberCode(String memberCode);
+
+    User queryUserByUserUuid(String userUuid);
 }
