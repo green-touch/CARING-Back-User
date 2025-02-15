@@ -1,9 +1,6 @@
-package com.caring.user_service.presentation.user.usecase;
+package com.caring.user_service.presentation.user.service;
 
 import com.caring.user_service.common.annotation.UseCase;
-import com.caring.user_service.domain.manager.business.adaptor.ManagerAdaptor;
-import com.caring.user_service.domain.manager.business.validate.ManagerValidator;
-import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.shelter.business.adaptor.ShelterAdaptor;
 import com.caring.user_service.domain.shelter.business.service.ShelterDomainService;
 import com.caring.user_service.domain.shelter.entity.Shelter;
@@ -23,7 +20,7 @@ public class RegisterUserByManagerUseCase {
     private final ShelterDomainService shelterDomainService;
 
     public Long execute(RequestUser requestUser, String shelterUuid) {
-        User user = userDomainService.registerUser(requestUser.getPassword(), requestUser.getName());
+        User user = userDomainService.registerUser(requestUser.getName(), requestUser.getPassword());
         Shelter shelter = shelterAdaptor.queryByShelterUuid(shelterUuid);
         shelterDomainService.addShelterGroup(shelterUuid, user);
         return user.getId();

@@ -9,6 +9,8 @@ import com.caring.user_service.domain.manager.business.service.ManagerDomainServ
 import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.shelter.entity.Shelter;
 import com.caring.user_service.domain.shelter.repository.ShelterRepository;
+import com.caring.user_service.domain.user.business.domainservice.UserDomainService;
+import com.caring.user_service.domain.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +36,8 @@ class ShelterDomainServiceTest {
     ShelterRepository shelterRepository;
     @Autowired
     ManagerDomainService managerDomainService;
+    @Autowired
+    UserDomainService userDomainService;
     @Autowired
     AuthorityDataInitializer authorityDataInitializer;
     @Autowired
@@ -76,6 +80,20 @@ class ShelterDomainServiceTest {
         shelterDomainService.addShelterStaff(shelter.getShelterUuid(), manager);
         //then
         assertThat(manager.getShelterUuid()).isEqualTo(shelter.getShelterUuid());
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("데이터베이스에 저장된 유저와 보호소의 랜덤 난수를 통해 연관관계를 맺어줍니다.(유저는 보호소 소속이 됩니다)")
+    void addShelterGroup(){
+        //given
+        Authority authority = authorityAdaptor.queryByManagerRole(ManagerRole.MANAGE);
+        Shelter shelter = shelterDomainService.registerShelter("shelter", "location");
+        User user = userDomainService.registerUser("password", "name");
+        //when
+        shelterDomainService.addShelterGroup(shelter.getShelterUuid(), user);
+        //then
+        assertThat(user.getShelterUuid()).isEqualTo(shelter.getShelterUuid());
     }
 
 }

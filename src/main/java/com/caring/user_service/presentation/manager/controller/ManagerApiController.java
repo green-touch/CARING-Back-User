@@ -1,14 +1,13 @@
 package com.caring.user_service.presentation.manager.controller;
 
 import com.caring.user_service.common.annotation.ManagerCode;
-import com.caring.user_service.common.annotation.MemberCode;
 import com.caring.user_service.common.annotation.Roles;
 import com.caring.user_service.common.util.RoleUtil;
 import com.caring.user_service.domain.authority.entity.ManagerRole;
-import com.caring.user_service.presentation.manager.usecase.ApplyManagerUseCase;
-import com.caring.user_service.presentation.manager.usecase.GetPendingSubmissionsUseCase;
-import com.caring.user_service.presentation.manager.usecase.PermissionRegisteringManagerUseCase;
-import com.caring.user_service.presentation.manager.usecase.RegisterSuperManagerUseCase;
+import com.caring.user_service.presentation.manager.service.ApplyManagerUseCase;
+import com.caring.user_service.presentation.manager.service.GetPendingSubmissionsUseCase;
+import com.caring.user_service.presentation.manager.service.PermissionRegisteringManagerUseCase;
+import com.caring.user_service.presentation.manager.service.RegisterSuperManagerUseCase;
 import com.caring.user_service.presentation.manager.vo.RequestManager;
 import com.caring.user_service.presentation.manager.vo.ResponseSubmission;
 import lombok.RequiredArgsConstructor;

@@ -1,11 +1,10 @@
-package com.caring.user_service.presentation.shelter.usecase;
+package com.caring.user_service.presentation.shelter.service;
 
 import com.caring.user_service.common.annotation.UseCase;
 import com.caring.user_service.domain.manager.business.adaptor.ManagerAdaptor;
 import com.caring.user_service.domain.manager.business.validate.ManagerValidator;
 import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.shelter.business.service.ShelterDomainService;
-import com.caring.user_service.presentation.manager.vo.RequestManager;
 import com.caring.user_service.presentation.shelter.vo.RequestShelter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

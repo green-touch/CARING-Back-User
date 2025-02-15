@@ -1,4 +1,4 @@
-package com.caring.user_service.presentation.manager.usecase;
+package com.caring.user_service.presentation.manager.service;
 
 import com.caring.user_service.common.annotation.UseCase;
 import com.caring.user_service.domain.manager.business.adaptor.ManagerAdaptor;
