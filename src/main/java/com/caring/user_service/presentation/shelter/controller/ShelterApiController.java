@@ -1,10 +1,8 @@
 package com.caring.user_service.presentation.shelter.controller;
 
 import com.caring.user_service.common.annotation.MemberCode;
-import com.caring.user_service.domain.manager.entity.Manager;
-import com.caring.user_service.presentation.shelter.usecase.RegisterShelterUseCase;
+import com.caring.user_service.presentation.shelter.service.RegisterShelterUseCase;
 import com.caring.user_service.presentation.shelter.vo.RequestShelter;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;

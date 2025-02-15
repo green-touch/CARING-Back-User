@@ -25,7 +25,7 @@ public class UserDomainServiceImpl implements UserDomainService{
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User registerUser(String password, String name) {
+    public User registerUser(String name, String password) {
         User newUser = User.builder()
                 .memberCode(generateRandomMemberCode(USER_MEMBER_CODE_PRESET))
                 .userUuid(UUID.randomUUID().toString())

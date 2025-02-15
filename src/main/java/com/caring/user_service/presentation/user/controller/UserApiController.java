@@ -1,19 +1,16 @@
 package com.caring.user_service.presentation.user.controller;
 
-import com.caring.user_service.common.annotation.MemberCode;
 import com.caring.user_service.common.annotation.Roles;
-import com.caring.user_service.common.util.EnumConvertUtil;
 import com.caring.user_service.common.util.RoleUtil;
 import com.caring.user_service.domain.authority.entity.ManagerRole;
-import com.caring.user_service.presentation.user.usecase.AddUserInManagerGroupUseCase;
-import com.caring.user_service.presentation.user.usecase.ReadAllUserUseCase;
-import com.caring.user_service.presentation.user.usecase.RegisterUserByManagerUseCase;
-import com.caring.user_service.presentation.user.usecase.RegisterUserUseCase;
+import com.caring.user_service.presentation.user.service.AddUserInManagerGroupUseCase;
+import com.caring.user_service.presentation.user.service.ReadAllUserUseCase;
+import com.caring.user_service.presentation.user.service.RegisterUserByManagerUseCase;
+import com.caring.user_service.presentation.user.service.RegisterUserUseCase;
 import com.caring.user_service.presentation.user.vo.RequestUser;
 import com.caring.user_service.presentation.user.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.util.EnumUtils;
 
 import java.util.List;
 

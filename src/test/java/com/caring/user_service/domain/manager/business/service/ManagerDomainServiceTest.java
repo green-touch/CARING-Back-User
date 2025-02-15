@@ -49,7 +49,7 @@ class ManagerDomainServiceTest {
 
     @BeforeEach
     void setup() {
-        authorityDataInitializer.initAuthorityData();;
+        authorityDataInitializer.initAuthorityData();
     }
 
     @AfterEach

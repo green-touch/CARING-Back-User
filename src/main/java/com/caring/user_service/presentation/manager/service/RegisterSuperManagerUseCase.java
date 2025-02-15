@@ -1,14 +1,9 @@
-package com.caring.user_service.presentation.manager.usecase;
+package com.caring.user_service.presentation.manager.service;
 
 import com.caring.user_service.common.annotation.UseCase;
 import com.caring.user_service.domain.authority.business.adaptor.AuthorityAdaptor;
 import com.caring.user_service.domain.authority.entity.ManagerRole;
-import com.caring.user_service.domain.manager.business.adaptor.ManagerAdaptor;
 import com.caring.user_service.domain.manager.business.service.ManagerDomainService;
-import com.caring.user_service.domain.manager.entity.Manager;
-import com.caring.user_service.domain.shelter.business.adaptor.ShelterAdaptor;
-import com.caring.user_service.domain.shelter.business.service.ShelterDomainService;
-import com.caring.user_service.domain.shelter.entity.Shelter;
 import com.caring.user_service.presentation.manager.vo.RequestManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 @UseCase
 @Transactional
 @RequiredArgsConstructor
-public class ApplyManagerUseCase {
+public class RegisterSuperManagerUseCase {
 
     private final ManagerDomainService managerDomainService;
+    private final AuthorityAdaptor authorityAdaptor;
 
-    public Long execute(RequestManager requestManager, String shelterUuid) {
-        return managerDomainService.applyManager(
+    public Long execute(RequestManager requestManager) {
+        return managerDomainService.registerManager(
                 requestManager.getName(),
                 requestManager.getPassword(),
-                shelterUuid).getId();
+                authorityAdaptor.queryByManagerRole(ManagerRole.SUPER)
+                ).getId();
     }
 }

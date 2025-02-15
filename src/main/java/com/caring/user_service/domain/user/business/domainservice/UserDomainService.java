@@ -7,7 +7,7 @@ import com.caring.user_service.domain.user.entity.User;
 
 public interface UserDomainService {
 
-    User registerUser(String password, String name);
+    User registerUser(String name, String password);
 
     ManagerGroup addUserInManagerGroup(User user, Manager manager);
 }

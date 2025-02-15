@@ -1,10 +1,9 @@
-package com.caring.user_service.presentation.manager.usecase;
+package com.caring.user_service.presentation.manager.service;
 
 import com.caring.user_service.common.AuthorityDataInitializer;
 import com.caring.user_service.common.service.DatabaseCleanUp;
 import com.caring.user_service.domain.manager.entity.Submission;
 import com.caring.user_service.domain.manager.repository.SubmissionRepository;
-import com.caring.user_service.domain.shelter.business.adaptor.ShelterAdaptor;
 import com.caring.user_service.domain.shelter.business.service.ShelterDomainService;
 import com.caring.user_service.domain.shelter.entity.Shelter;
 import com.caring.user_service.presentation.manager.vo.RequestManager;
@@ -21,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @ActiveProfiles("test")
