@@ -1,20 +1,15 @@
 package com.caring.user_service.domain.user.business.domainservice;
 
 import com.caring.user_service.common.annotation.DomainService;
-import com.caring.user_service.common.consts.StaticVariable;
-import com.caring.user_service.common.util.RandomNumberUtil;
 import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.manager.entity.ManagerGroup;
 import com.caring.user_service.domain.manager.repository.ManagerGroupRepository;
 import com.caring.user_service.domain.shelter.entity.Shelter;
-import com.caring.user_service.domain.shelter.entity.ShelterGroup;
-import com.caring.user_service.domain.shelter.repository.ShelterGroupRepository;
 import com.caring.user_service.domain.user.entity.Role;
 import com.caring.user_service.domain.user.entity.User;
 import com.caring.user_service.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -26,7 +21,6 @@ import static com.caring.user_service.common.util.RandomNumberUtil.generateRando
 public class UserDomainServiceImpl implements UserDomainService{
 
     private final UserRepository userRepository;
-    private final ShelterGroupRepository shelterGroupRepository;
     private final ManagerGroupRepository managerGroupRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -40,15 +34,6 @@ public class UserDomainServiceImpl implements UserDomainService{
                 .name(name)
                 .build();
         return userRepository.save(newUser);
-    }
-
-    @Override
-    public ShelterGroup addUserInShelterGroup(User user, Shelter shelter) {
-        ShelterGroup newShelterGroup = ShelterGroup.builder()
-                .shelter(shelter)
-                .user(user)
-                .build();
-        return shelterGroupRepository.save(newShelterGroup);
     }
 
     @Override

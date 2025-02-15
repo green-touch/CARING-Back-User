@@ -6,10 +6,6 @@ import com.caring.user_service.domain.manager.entity.Submission;
 import com.caring.user_service.domain.manager.entity.SubmissionStatus;
 import com.caring.user_service.domain.manager.repository.ManagerRepository;
 import com.caring.user_service.domain.manager.repository.SubmissionRepository;
-import com.caring.user_service.domain.shelter.entity.Shelter;
-import com.caring.user_service.domain.shelter.entity.ShelterStaff;
-import com.caring.user_service.domain.shelter.repository.ShelterRepository;
-import com.caring.user_service.domain.shelter.repository.ShelterStaffRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -20,7 +16,6 @@ import java.util.stream.Collectors;
 public class ManagerAdaptorImpl implements ManagerAdaptor{
 
     private final ManagerRepository managerRepository;
-    private final ShelterStaffRepository shelterStaffRepository;
     private final SubmissionRepository submissionRepository;
 
     @Override
@@ -37,11 +32,7 @@ public class ManagerAdaptorImpl implements ManagerAdaptor{
 
     @Override
     public List<Manager> queryByShelter(String shelterUuid) {
-        //TODO query 최적화
-        List<ShelterStaff> shelterStaffList = shelterStaffRepository.findByShelterShelterUuid(shelterUuid);
-        return shelterStaffList.stream()
-                .map(shelterStaff -> shelterStaff.getManager())
-                .collect(Collectors.toList());
+        return managerRepository.findByShelterUuid(shelterUuid);
     }
 
     @Override
