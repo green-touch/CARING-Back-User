@@ -1,6 +1,6 @@
 package com.caring.user_service.common.service;
 
-import com.caring.user_service.common.annotation.Roles;
+import com.caring.user_service.common.annotation.ManagerRoles;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -18,7 +18,7 @@ public class RolesArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(Roles.class) != null &&
+        return parameter.getParameterAnnotation(ManagerRoles.class) != null &&
                 (parameter.getParameterType().equals(String.class) || parameter.getParameterType().equals(List.class));
     }
 

@@ -9,6 +9,8 @@ import com.caring.user_service.domain.manager.business.service.ManagerDomainServ
 import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.manager.entity.ManagerGroup;
 import com.caring.user_service.domain.manager.repository.ManagerGroupRepository;
+import com.caring.user_service.domain.shelter.business.service.ShelterDomainService;
+import com.caring.user_service.domain.shelter.entity.Shelter;
 import com.caring.user_service.domain.user.business.domainservice.UserDomainService;
 import com.caring.user_service.domain.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +46,8 @@ class AddUserInManagerGroupUseCaseTest {
     @Autowired
     ManagerGroupRepository managerGroupRepository;
     @Autowired
+    ShelterDomainService shelterDomainService;
+    @Autowired
     DatabaseCleanUp databaseCleanUp;
 
     @BeforeEach
@@ -65,6 +69,9 @@ class AddUserInManagerGroupUseCaseTest {
         Authority superAuthority = authorityAdaptor.queryByManagerRole(ManagerRole.SUPER);
         Manager manager = managerDomainService
                 .registerManager("manager_name", "manager_password", superAuthority);
+        Shelter shelter = shelterDomainService.registerShelter("shelter", "location");
+        shelterDomainService.addShelterGroup(shelter.getShelterUuid(), user);
+        shelterDomainService.addShelterStaff(shelter.getShelterUuid(), manager);
         //when
         Long managerGroupId = addUserInManagerGroupUseCase.execute(user.getUserUuid(), manager.getManagerUuid());
         //then
