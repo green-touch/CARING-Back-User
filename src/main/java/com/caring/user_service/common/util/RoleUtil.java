@@ -13,4 +13,13 @@ public class RoleUtil {
             throw new RuntimeException("No matching role found");
         }
     }
+
+    public static void containManagerRole(List<ManagerRole> managerRoles, List<String> roles) {
+        if (roles.stream()
+                .map(role -> EnumConvertUtil.convert(ManagerRole.class, role))
+                .noneMatch(managerRoles::contains)
+        ) {
+            throw new RuntimeException("No matching role found");
+        }
+    }
 }
