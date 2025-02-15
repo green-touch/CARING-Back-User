@@ -64,7 +64,7 @@ public class SecurityConfig {
                                     "/error", "/images/**").permitAll()
                             .requestMatchers(permitAllRequest()).permitAll()
                             .requestMatchers(additionalSwaggerRequests()).permitAll()
-                            .requestMatchers(authRelatedEndpoints()).access((authentication, request) -> {
+                            .anyRequest().access((authentication, request) -> {
                                 String clientIp = request.getRequest().getRemoteAddr();
                                 String gatewayIp = microServiceIpResolver.resolveGatewayIp();
                                 log.info("client ip is = {}", clientIp);
@@ -80,9 +80,7 @@ public class SecurityConfig {
                 antMatcher("/health_check"),
                 antMatcher("/actuator/**"),
                 antMatcher("/welcome"),
-                antMatcher("/v1/api/tokens/**"),
-                antMatcher(HttpMethod.POST, "/v1/api/managers/super"),
-                antMatcher(HttpMethod.POST, "/v1/api/managers/submissions/shelters/{uuid}")
+                antMatcher("/v1/api/access/**")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
     }
@@ -100,13 +98,13 @@ public class SecurityConfig {
         return requestMatchers.toArray(RequestMatcher[]::new);
     }
 
-    private RequestMatcher[] authRelatedEndpoints() {
-        List<RequestMatcher> requestMatchers = List.of(
-                antMatcher("/v1/api/users"),
-                antMatcher("/v1/api/shelters/**"),
-                antMatcher(HttpMethod.GET, "/v1/api/managers/submissions"),
-                antMatcher(HttpMethod.POST, "/v1/api/managers/submissions/{uuid}/permission")
-        );
-        return requestMatchers.toArray(RequestMatcher[]::new);
+//    private RequestMatcher[] authRelatedEndpoints() {
+//        List<RequestMatcher> requestMatchers = List.of(
+//                antMatcher("/v1/api/users"),
+//                antMatcher("/v1/api/shelters/**"),
+//                antMatcher(HttpMethod.GET, "/v1/api/managers/submissions"),
+//                antMatcher(HttpMethod.POST, "/v1/api/managers/submissions/{uuid}/permission")
+//        );
+//        return requestMatchers.toArray(RequestMatcher[]::new);
     }
 }

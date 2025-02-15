@@ -20,21 +20,8 @@ import java.util.List;
 @RequestMapping("/v1/api/managers")
 public class ManagerApiController {
 
-    private final RegisterSuperManagerUseCase registerSuperManagerUseCase;
-    private final ApplyManagerUseCase applyManagerUseCase;
     private final GetPendingSubmissionsUseCase getPendingSubmissionUseCase;
     private final PermissionRegisteringManagerUseCase permissionRegisteringManagerUseCase;
-
-    @PostMapping("/super")
-    public Long registerSuperManager(@RequestBody RequestManager requestManager) {
-        return registerSuperManagerUseCase.execute(requestManager);
-    }
-
-    @PostMapping("/submissions/shelters/{uuid}")
-    public Long applyManager(@PathVariable String uuid,
-                             @RequestBody RequestManager requestManager) {
-        return applyManagerUseCase.execute(requestManager, uuid);
-    }
 
     @GetMapping("/submissions")
     public List<ResponseSubmission> getPendingSubmissions(@ManagerRoles List<String> roles) {
