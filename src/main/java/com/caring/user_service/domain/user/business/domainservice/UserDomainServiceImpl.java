@@ -3,6 +3,9 @@ package com.caring.user_service.domain.user.business.domainservice;
 import com.caring.user_service.common.annotation.DomainService;
 import com.caring.user_service.common.consts.StaticVariable;
 import com.caring.user_service.common.util.RandomNumberUtil;
+import com.caring.user_service.domain.manager.entity.Manager;
+import com.caring.user_service.domain.manager.entity.ManagerGroup;
+import com.caring.user_service.domain.manager.repository.ManagerGroupRepository;
 import com.caring.user_service.domain.shelter.entity.Shelter;
 import com.caring.user_service.domain.shelter.entity.ShelterGroup;
 import com.caring.user_service.domain.shelter.repository.ShelterGroupRepository;
@@ -24,6 +27,7 @@ public class UserDomainServiceImpl implements UserDomainService{
 
     private final UserRepository userRepository;
     private final ShelterGroupRepository shelterGroupRepository;
+    private final ManagerGroupRepository managerGroupRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -39,11 +43,21 @@ public class UserDomainServiceImpl implements UserDomainService{
     }
 
     @Override
-    public ShelterGroup addUserInShelterGroup(Shelter shelter, User user) {
+    public ShelterGroup addUserInShelterGroup(User user, Shelter shelter) {
         ShelterGroup newShelterGroup = ShelterGroup.builder()
                 .shelter(shelter)
                 .user(user)
                 .build();
         return shelterGroupRepository.save(newShelterGroup);
     }
+
+    @Override
+    public ManagerGroup addUserInManagerGroup(User user, Manager manager) {
+        ManagerGroup newManagerGroup = ManagerGroup.builder()
+                .manager(manager)
+                .user(user)
+                .build();
+        return managerGroupRepository.save(newManagerGroup);
+    }
+
 }

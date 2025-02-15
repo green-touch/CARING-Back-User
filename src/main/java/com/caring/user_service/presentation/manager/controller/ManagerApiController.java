@@ -1,6 +1,10 @@
 package com.caring.user_service.presentation.manager.controller;
 
+import com.caring.user_service.common.annotation.ManagerCode;
 import com.caring.user_service.common.annotation.MemberCode;
+import com.caring.user_service.common.annotation.Roles;
+import com.caring.user_service.common.util.RoleUtil;
+import com.caring.user_service.domain.authority.entity.ManagerRole;
 import com.caring.user_service.presentation.manager.usecase.ApplyManagerUseCase;
 import com.caring.user_service.presentation.manager.usecase.GetPendingSubmissionsUseCase;
 import com.caring.user_service.presentation.manager.usecase.PermissionRegisteringManagerUseCase;
@@ -34,14 +38,16 @@ public class ManagerApiController {
     }
 
     @GetMapping("/submissions")
-    //TODO authorization
-    public List<ResponseSubmission> getPendingSubmissions() {
+    public List<ResponseSubmission> getPendingSubmissions(@Roles List<String> roles) {
+        RoleUtil.containManagerRole(ManagerRole.SUPER, roles);
         return getPendingSubmissionUseCase.execute();
     }
 
     @PostMapping("/submissions/{uuid}/permission")
     public Long permissionRegisteringManager(@PathVariable String uuid,
-                                             @MemberCode String memberCode) {
+                                             @ManagerCode String memberCode,
+                                             @Roles List<String> roles) {
+        RoleUtil.containManagerRole(ManagerRole.SUPER, roles);
         return permissionRegisteringManagerUseCase.execute(uuid, memberCode);
     }
 

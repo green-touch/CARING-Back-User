@@ -28,4 +28,9 @@ public class UserAdaptorImpl implements UserAdaptor{
     public User queryUserByMemberCode(String memberCode) {
         return userRepository.findByMemberCode(memberCode).orElseThrow(() -> new RuntimeException("not found user"));
     }
+
+    @Override
+    public User queryUserByUserUuid(String userUuid) {
+        return userRepository.findByUserUuid(userUuid).orElseThrow(() -> new RuntimeException("not found user"));
+    }
 }

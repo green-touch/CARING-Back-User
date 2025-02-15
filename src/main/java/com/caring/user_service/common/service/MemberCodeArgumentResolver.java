@@ -1,6 +1,8 @@
 package com.caring.user_service.common.service;
 
+import com.caring.user_service.common.annotation.ManagerCode;
 import com.caring.user_service.common.annotation.MemberCode;
+import com.caring.user_service.common.annotation.UserCode;
 import com.caring.user_service.common.consts.StaticVariable;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
@@ -17,8 +19,7 @@ public class MemberCodeArgumentResolver implements HandlerMethodArgumentResolver
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(MemberCode.class) != null &&
-                parameter.getParameterType().equals(String.class);
+        return isSupportedAnnotation(parameter) && parameter.getParameterType().equals(String.class);
     }
 
     @Override
@@ -26,5 +27,10 @@ public class MemberCodeArgumentResolver implements HandlerMethodArgumentResolver
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         return request.getHeader(REQUEST_HEADER_MEMBER_CODE);
+    }
+
+    private boolean isSupportedAnnotation(MethodParameter parameter) {
+        return parameter.getParameterAnnotation(UserCode.class) != null ||
+                parameter.getParameterAnnotation(ManagerCode.class) != null;
     }
 }
