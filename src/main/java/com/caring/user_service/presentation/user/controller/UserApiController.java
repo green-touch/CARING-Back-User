@@ -19,21 +19,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserApiController {
 
-    private final RegisterUserUseCase registerUserUseCase;
-    private final ReadAllUserUseCase readAllUserUseCase;
     private final RegisterUserByManagerUseCase registerUserByManagerUseCase;
     private final AddUserInManagerGroupUseCase addUserInManagerGroupUseCase;
 //    private final GetUserProfileUseCase getUserProfileUseCase;
 
-    @PostMapping
-    public Long registerUser(@RequestBody RequestUser requestUser) {
-        return registerUserUseCase.execute(requestUser);
-    }
-
-    @GetMapping
-    public List<ResponseUser> getAllUser() {
-        return readAllUserUseCase.execute();
-    }
 
     @PostMapping("/shelters/{shelterUuid}")
     public Long registerUserByManager(@PathVariable String shelterUuid,

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/v1/api/tokens")
+@RequestMapping("/v1/api/access/tokens")
 @RequiredArgsConstructor
-public class SecurityApiController {
+public class SecurityAccessApiController {
 
     private final UserTokenService userTokenService;
     private final ManagerTokenService managerTokenService;

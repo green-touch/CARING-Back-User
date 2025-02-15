@@ -1,5 +1,6 @@
 package com.caring.user_service.presentation.shelter.controller;
 
+import com.caring.user_service.common.annotation.ManagerCode;
 import com.caring.user_service.common.annotation.MemberCode;
 import com.caring.user_service.presentation.shelter.service.RegisterShelterUseCase;
 import com.caring.user_service.presentation.shelter.vo.RequestShelter;
@@ -19,7 +20,7 @@ public class ShelterApiController {
     private final RegisterShelterUseCase registerShelterUseCase;
 
     @PostMapping
-    public Long registerShelter(@MemberCode String memberCode,
+    public Long registerShelter(@ManagerCode String memberCode,
                                 @RequestBody RequestShelter requestShelter) {
         return registerShelterUseCase.execute(requestShelter, memberCode);
     }
