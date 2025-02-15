@@ -106,5 +106,5 @@ public class SecurityConfig {
 //                antMatcher(HttpMethod.POST, "/v1/api/managers/submissions/{uuid}/permission")
 //        );
 //        return requestMatchers.toArray(RequestMatcher[]::new);
-    }
+//    }
 }

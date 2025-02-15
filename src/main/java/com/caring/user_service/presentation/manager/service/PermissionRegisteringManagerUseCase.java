@@ -8,6 +8,7 @@ import com.caring.user_service.domain.manager.business.service.ManagerDomainServ
 import com.caring.user_service.domain.manager.business.validate.ManagerValidator;
 import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.manager.entity.Submission;
+import com.caring.user_service.domain.shelter.business.service.ShelterDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,23 +20,25 @@ public class PermissionRegisteringManagerUseCase {
     private final ManagerAdaptor managerAdaptor;
     private final ManagerValidator managerValidator;
     private final ManagerDomainService managerDomainService;
+    private final ShelterDomainService shelterDomainService;
     private final AuthorityAdaptor authorityAdaptor;
 
-    public Long execute(String uuid, String memberCode) {
+    public Long execute(String submissionUuid, String memberCode) {
         // check authorization
         Manager manager = managerAdaptor.queryByMemberCode(memberCode);
         if (!managerValidator.isSuper(manager)) {
             throw new RuntimeException("not authorization");
         }
         // register manager
-        Submission submission = managerAdaptor.querySubmissionByUuid(uuid);
+        Submission submission = managerAdaptor.querySubmissionByUuid(submissionUuid);
         Manager insertManager = managerDomainService.registerManager(
                 submission.getName(),
                 submission.getPassword(),
                 authorityAdaptor.queryByManagerRole(ManagerRole.MANAGE)
         );
+        shelterDomainService.addShelterStaff(submission.getShelterUuid(), insertManager);
         // remove submission
-        managerDomainService.removeSubmission(uuid);
+        managerDomainService.removeSubmission(submissionUuid);
         return insertManager.getId();
     }
 }

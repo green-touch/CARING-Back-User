@@ -10,10 +10,13 @@ import com.caring.user_service.presentation.user.service.RegisterUserUseCase;
 import com.caring.user_service.presentation.user.vo.RequestUser;
 import com.caring.user_service.presentation.user.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/v1/api/users")
 @RequiredArgsConstructor
