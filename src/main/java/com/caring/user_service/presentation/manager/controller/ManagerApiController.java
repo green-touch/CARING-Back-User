@@ -1,7 +1,7 @@
 package com.caring.user_service.presentation.manager.controller;
 
 import com.caring.user_service.common.annotation.ManagerCode;
-import com.caring.user_service.common.annotation.Roles;
+import com.caring.user_service.common.annotation.ManagerRoles;
 import com.caring.user_service.common.util.RoleUtil;
 import com.caring.user_service.domain.authority.entity.ManagerRole;
 import com.caring.user_service.presentation.manager.service.ApplyManagerUseCase;
@@ -37,7 +37,7 @@ public class ManagerApiController {
     }
 
     @GetMapping("/submissions")
-    public List<ResponseSubmission> getPendingSubmissions(@Roles List<String> roles) {
+    public List<ResponseSubmission> getPendingSubmissions(@ManagerRoles List<String> roles) {
         RoleUtil.containManagerRole(ManagerRole.SUPER, roles);
         return getPendingSubmissionUseCase.execute();
     }
@@ -45,7 +45,7 @@ public class ManagerApiController {
     @PostMapping("/submissions/{uuid}/permission")
     public Long permissionRegisteringManager(@PathVariable String uuid,
                                              @ManagerCode String memberCode,
-                                             @Roles List<String> roles) {
+                                             @ManagerRoles List<String> roles) {
         RoleUtil.containManagerRole(ManagerRole.SUPER, roles);
         return permissionRegisteringManagerUseCase.execute(uuid, memberCode);
     }

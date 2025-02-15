@@ -1,6 +1,6 @@
 package com.caring.user_service.presentation.user.controller;
 
-import com.caring.user_service.common.annotation.Roles;
+import com.caring.user_service.common.annotation.ManagerRoles;
 import com.caring.user_service.common.util.RoleUtil;
 import com.caring.user_service.domain.authority.entity.ManagerRole;
 import com.caring.user_service.presentation.user.service.AddUserInManagerGroupUseCase;
@@ -38,7 +38,7 @@ public class UserApiController {
     @PostMapping("/shelters/{shelterUuid}")
     public Long registerUserByManager(@PathVariable String shelterUuid,
                                       @RequestBody RequestUser requestUser,
-                                      @Roles List<String> roles) {
+                                      @ManagerRoles List<String> roles) {
         RoleUtil.containManagerRole(ManagerRole.SUPER, roles);
         return registerUserByManagerUseCase.execute(requestUser, shelterUuid);
     }
@@ -46,7 +46,7 @@ public class UserApiController {
     @PostMapping("/{userUuid}/managers/{managerUuid}")
     public Long addUserInManagerGroup(@PathVariable String userUuid,
                                       @PathVariable String managerUuid,
-                                      @Roles List<String> roles) {
+                                      @ManagerRoles List<String> roles) {
         RoleUtil.containManagerRole(ManagerRole.SUPER, roles);
         return addUserInManagerGroupUseCase.execute(userUuid, managerUuid);
     }
