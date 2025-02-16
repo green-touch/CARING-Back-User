@@ -2,7 +2,7 @@ package com.caring.user_service.presentation.manager.controller;
 
 import com.caring.user_service.presentation.manager.service.ApplyManagerUseCase;
 import com.caring.user_service.presentation.manager.service.RegisterSuperManagerUseCase;
-import com.caring.user_service.presentation.manager.vo.RequestManager;
+import com.caring.user_service.presentation.manager.vo.request.RequestManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

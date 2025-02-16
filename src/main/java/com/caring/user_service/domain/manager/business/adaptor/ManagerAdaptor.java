@@ -17,4 +17,7 @@ public interface ManagerAdaptor {
     Submission querySubmissionByUuid(String submissionUuid);
 
     List<Submission> querySubmissionsByStatus(SubmissionStatus status);
+
+    List<Manager> queryAll();
+
 }

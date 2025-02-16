@@ -2,7 +2,7 @@ package com.caring.user_service.presentation.manager.service;
 
 import com.caring.user_service.common.annotation.UseCase;
 import com.caring.user_service.domain.manager.business.service.ManagerDomainService;
-import com.caring.user_service.presentation.manager.vo.RequestManager;
+import com.caring.user_service.presentation.manager.vo.request.RequestManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

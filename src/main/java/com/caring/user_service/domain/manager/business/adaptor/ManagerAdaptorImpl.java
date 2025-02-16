@@ -46,4 +46,9 @@ public class ManagerAdaptorImpl implements ManagerAdaptor{
         return submissionRepository.findByStatus(status);
     }
 
+    @Override
+    public List<Manager> queryAll() {
+        return managerRepository.findAll();
+    }
+
 }
