@@ -21,7 +21,7 @@ public class RolesArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.getParameterAnnotation(ManagerRoles.class) != null &&
-                (parameter.getParameterType().equals(String.class) || parameter.getParameterType().equals(List.class);
+                (parameter.getParameterType().equals(String.class) || parameter.getParameterType().equals(List.class));
     }
 
     @Override
