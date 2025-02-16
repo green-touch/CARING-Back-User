@@ -37,7 +37,7 @@ public class ManagerApiController {
         return permissionRegisteringManagerUseCase.execute(submissionUuid, memberCode);
     }
 
-    @GetMapping("/shelter/{shelterUuid}")
+    @GetMapping("/shelters/{shelterUuid}")
     public List<ResponseSpecificManager> getShelterStaff(@PathVariable String shelterUuid) {
         return getShelterStaffUseCase.execute(shelterUuid);
     }
