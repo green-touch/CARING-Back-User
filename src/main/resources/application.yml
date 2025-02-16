@@ -17,3 +17,13 @@ management:
     web:
       exposure:
         include: "*"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html   # Swagger UI 경로 명시
+    enabled: true             # Swagger UI 활성화
+  api-docs:
+    path: /v3/api-docs        # OpenAPI 경로 명시
+  servers:
+    - url: http://localhost:8000/user-service  # Gateway 주소 + prefix
+      description: Gateway를 통한 User-Service API
