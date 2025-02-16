@@ -1,4 +1,4 @@
-package com.caring.user_service.presentation.manager.vo;
+package com.caring.user_service.presentation.manager.vo.request;
 
 import lombok.Builder;
 import lombok.Getter;

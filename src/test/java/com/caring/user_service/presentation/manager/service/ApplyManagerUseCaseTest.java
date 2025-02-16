@@ -6,7 +6,7 @@ import com.caring.user_service.domain.manager.entity.Submission;
 import com.caring.user_service.domain.manager.repository.SubmissionRepository;
 import com.caring.user_service.domain.shelter.business.service.ShelterDomainService;
 import com.caring.user_service.domain.shelter.entity.Shelter;
-import com.caring.user_service.presentation.manager.vo.RequestManager;
+import com.caring.user_service.presentation.manager.vo.request.RequestManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

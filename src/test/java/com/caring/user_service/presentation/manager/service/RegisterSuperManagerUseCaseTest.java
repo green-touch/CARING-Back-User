@@ -7,7 +7,7 @@ import com.caring.user_service.domain.authority.entity.ManagerRole;
 import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.manager.repository.ManagerAuthorityRepository;
 import com.caring.user_service.domain.manager.repository.ManagerRepository;
-import com.caring.user_service.presentation.manager.vo.RequestManager;
+import com.caring.user_service.presentation.manager.vo.request.RequestManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
