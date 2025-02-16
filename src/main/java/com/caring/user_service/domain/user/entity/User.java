@@ -34,6 +34,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     private String password;
     private String name;
+    @Column(name = "shelter_uuid")
     private String shelterUuid;
 
     @Override
