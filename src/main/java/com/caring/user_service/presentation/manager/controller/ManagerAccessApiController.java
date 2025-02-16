@@ -19,9 +19,9 @@ public class ManagerAccessApiController {
         return registerSuperManagerUseCase.execute(requestManager);
     }
 
-    @PostMapping("/submissions/shelters/{uuid}")
-    public Long applyManager(@PathVariable String uuid,
+    @PostMapping("/submissions/shelters/{shelterUuid}")
+    public Long applyManager(@PathVariable String shelterUuid,
                              @RequestBody RequestManager requestManager) {
-        return applyManagerUseCase.execute(requestManager, uuid);
+        return applyManagerUseCase.execute(requestManager, shelterUuid);
     }
 }
