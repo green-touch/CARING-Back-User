@@ -7,6 +7,8 @@ import com.caring.user_service.domain.shelter.repository.ShelterRepository;
 import com.caring.user_service.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Objects;
+
 @Validator
 @RequiredArgsConstructor
 public class ShelterValidatorImpl implements ShelterValidator{
@@ -15,7 +17,7 @@ public class ShelterValidatorImpl implements ShelterValidator{
 
     @Override
     public boolean isSameShelterUserAndManager(User user, Manager manager) {
-        return user.getShelterUuid().equals(manager.getShelterUuid());
+        return Objects.equals(user.getShelterUuid(), manager.getShelterUuid());
     }
 
     @Override
