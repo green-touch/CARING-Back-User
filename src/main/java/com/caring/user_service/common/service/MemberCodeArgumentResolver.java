@@ -1,12 +1,9 @@
 package com.caring.user_service.common.service;
 
 import com.caring.user_service.common.annotation.ManagerCode;
-import com.caring.user_service.common.annotation.MemberCode;
 import com.caring.user_service.common.annotation.UserCode;
-import com.caring.user_service.common.consts.StaticVariable;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

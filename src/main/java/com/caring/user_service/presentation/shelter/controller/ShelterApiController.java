@@ -1,7 +1,6 @@
 package com.caring.user_service.presentation.shelter.controller;
 
 import com.caring.user_service.common.annotation.ManagerCode;
-import com.caring.user_service.common.annotation.MemberCode;
 import com.caring.user_service.presentation.shelter.service.RegisterShelterUseCase;
 import com.caring.user_service.presentation.shelter.vo.RequestShelter;
 import lombok.RequiredArgsConstructor;
