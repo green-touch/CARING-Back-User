@@ -17,13 +17,13 @@ public class UserAccessApiController {
     private final RegisterUserUseCase registerUserUseCase;
     private final ReadAllUserUseCase readAllUserUseCase;
 
-//    @PostMapping
-//    public Long registerUser(@RequestBody RequestUser requestUser) {
-//        return registerUserUseCase.execute(requestUser);
-//    }
-//
-//    @GetMapping
-//    public List<ResponseUser> getAllUser() {
-//        return readAllUserUseCase.execute();
-//    }
+    @PostMapping("/register")
+    public Long registerUser(@RequestBody RequestUser requestUser) {
+        return registerUserUseCase.execute(requestUser);
+    }
+
+    @GetMapping
+    public List<ResponseUser> getAllUser() {
+        return readAllUserUseCase.execute();
+    }
 }
