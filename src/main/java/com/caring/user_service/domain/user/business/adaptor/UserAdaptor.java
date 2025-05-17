@@ -14,5 +14,5 @@ public interface UserAdaptor {
 
     User queryUserByUserUuid(String userUuid);
 
-//    List<User> queryUserByManagerGroup(Manager manager);
+    List<User> queryByUserUuidList(List<String> userUuidList);
 }

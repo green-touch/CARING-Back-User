@@ -36,4 +36,9 @@ public class UserAdaptorImpl implements UserAdaptor{
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "User not found with UUID: " + userUuid));
     }
+
+    @Override
+    public List<User> queryByUserUuidList(List<String> userUuidList) {
+        return userRepository.findByUserUuidIn(userUuidList);
+    }
 }
