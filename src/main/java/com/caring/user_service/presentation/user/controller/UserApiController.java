@@ -22,7 +22,6 @@ import java.util.List;
 public class UserApiController {
 
     private final GetUserProfileUseCase getUserProfileUseCase;
-//    private final GetUsersOfManagerGroupUseCase getUsersOfManagerGroupUseCase;
     private final GetUserShelterUuidUseCase getUserShelterUuidUseCase;
 
     @Operation(summary = "특정 유저의 계정을 조회합니다.")
@@ -32,12 +31,6 @@ public class UserApiController {
         RoleUtil.containManagerRole(StaticVariable.ALL_MANAGER_ACCESS, roles);
         return getUserProfileUseCase.execute(userUuid);
     }
-
-//    @Operation(summary = "로그인 중인 매니저의 관리 유저들을 조회합니다.")
-//    @GetMapping("/grouped")
-//    public List<ResponseUser> getUsersOfManagerGroup(@ManagerCode String memberCode) {
-//        return getUsersOfManagerGroupUseCase.execute(memberCode);
-//    }
 
     @Operation(summary = "특정 유저의 shelterUuid를 반환합니다. 유저가 없으면 404를 반환합니다.")
     @GetMapping("/{userUuid}/shelterUuid")
