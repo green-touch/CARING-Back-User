@@ -8,7 +8,6 @@ import com.caring.user_service.domain.user.entity.User;
 import com.caring.user_service.domain.user.repository.UserRepository;
 import com.caring.user_service.presentation.security.vo.JwtToken;
 import com.caring.user_service.presentation.user.service.UserLoginUseCase;
-import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,8 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-
-import java.security.Key;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -41,8 +38,6 @@ class UserTokenServiceTest {
     @Mock
     private UserLoginUseCase userLoginUseCase;
     @Mock
-    private UserRepository userRepository;
-    @Mock
     private DatabaseCleanUp databaseCleanUp;
 
     private User testUser;
@@ -52,7 +47,6 @@ class UserTokenServiceTest {
     void setUp() {
         // 테스트용 시크릿 키 설정
         given(env.getProperty("token.secret-user")).willReturn(TEST_SECRET_KEY);
-        Key key = Keys.hmacShaKeyFor(TEST_SECRET_KEY.getBytes());
 
         // 서비스 초기화
         userTokenService = new UserTokenServiceImpl(env, redisService, userAdaptor, userLoginUseCase);
@@ -65,8 +59,6 @@ class UserTokenServiceTest {
                 .name("testUser")
                 .password("encodedTestPassword")
                 .build();
-
-        userRepository.save(testUser);
     }
 
     @AfterEach
@@ -92,7 +84,7 @@ class UserTokenServiceTest {
     }
 
     @Test
-    @DisplayName("토큰 재발급 시 새로운 JWT 토큰이 생성됩니다.")
+    @DisplayName("토큰 재발급 시 완전히 새로운 JWT 토큰이 생성됩니다.")
     void reissueToken() {
         // given
         Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -110,6 +102,10 @@ class UserTokenServiceTest {
         assertThat(newToken.getAccessToken()).isNotNull();
         assertThat(newToken.getRefreshToken()).isNotNull();
         verify(redisService).deleteValue(refreshToken);
+
+        //같은 시각에 새로 발급 하더라도, 토큰의 id가 다르게 설정되었기에 문제없이 테스트 통과됨
+        assertThat(newToken.getAccessToken()).isNotEqualTo(token.getAccessToken());
+        assertThat(newToken.getRefreshToken()).isNotEqualTo(token.getRefreshToken());
     }
 
     @Test
