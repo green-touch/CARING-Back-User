@@ -24,6 +24,7 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -87,14 +88,18 @@ public class UserTokenServiceImpl implements UserTokenService {
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("auth", authorities)
+                .setIssuedAt(new Date(now))
                 .setExpiration(accessTokenExpiresIn)
+                .setId(UUID.randomUUID().toString())
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
         // Refresh Token 생성
         String refreshToken = Jwts.builder()
                 .setSubject(authentication.getName())
+                .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + 604800000))    // 7일
+                .setId(UUID.randomUUID().toString())
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
