@@ -17,7 +17,9 @@ public class UserAdaptorImpl implements UserAdaptor{
 
     @Override
     public User queryUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("not found user"));
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "User not found with ID: " + userId));
     }
 
     @Override
@@ -27,7 +29,14 @@ public class UserAdaptorImpl implements UserAdaptor{
 
     @Override
     public User queryUserByMemberCode(String memberCode) {
-        return userRepository.findByMemberCode(memberCode).orElseThrow(() -> new RuntimeException("not found user"));
+        if (memberCode == null || memberCode.trim().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "MemberCode must not be null or blank");
+        }
+
+        return userRepository.findByMemberCode(memberCode)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "User not found with member code: " + memberCode));
     }
 
     @Override
