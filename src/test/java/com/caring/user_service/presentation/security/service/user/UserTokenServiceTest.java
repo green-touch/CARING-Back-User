@@ -5,7 +5,6 @@ import com.caring.user_service.common.service.RedisService;
 import com.caring.user_service.domain.user.business.adaptor.UserAdaptor;
 import com.caring.user_service.domain.user.entity.Role;
 import com.caring.user_service.domain.user.entity.User;
-import com.caring.user_service.domain.user.repository.UserRepository;
 import com.caring.user_service.presentation.security.vo.JwtToken;
 import com.caring.user_service.presentation.user.service.UserLoginUseCase;
 import org.junit.jupiter.api.AfterEach;
