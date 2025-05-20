@@ -1,11 +1,11 @@
 package com.caring.user_service.presentation.user.vo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class ResponseUserShelterUuid {
     private String shelterUuid;
