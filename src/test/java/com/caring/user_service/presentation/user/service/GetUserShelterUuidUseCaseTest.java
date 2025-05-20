@@ -32,7 +32,6 @@ class GetUserShelterUuidUseCaseTest {
     @Autowired
     private DatabaseCleanUp databaseCleanUp;
 
-    private User testUser;
     private String testUserUuid;
     private String testShelterUuid;
 
@@ -41,7 +40,7 @@ class GetUserShelterUuidUseCaseTest {
         testUserUuid = UUID.randomUUID().toString();
         testShelterUuid = UUID.randomUUID().toString();
 
-        testUser = User.builder()
+        User testUser = User.builder()
                 .userUuid(testUserUuid)
                 .name("testUser001")
                 .password("password")

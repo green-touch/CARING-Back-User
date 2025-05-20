@@ -32,27 +32,23 @@ class ReadAllUserUseCaseTest {
     @Autowired
     private DatabaseCleanUp databaseCleanUp;
 
-    private User user1;
-    private User user2;
-    private User user3;
-
     @BeforeEach
     void setUp() {
-        user1 = User.builder()
+        User user1 = User.builder()
                 .name("testUser001")
                 .password("password1")
                 .userUuid(UUID.randomUUID().toString())
                 .memberCode(RandomNumberUtil.generateRandomMemberCode(USER_MEMBER_CODE_PRESET))
                 .build();
 
-        user2 = User.builder()
+        User user2 = User.builder()
                 .name("testUser002")
                 .password("password2")
                 .userUuid(UUID.randomUUID().toString())
                 .memberCode(RandomNumberUtil.generateRandomMemberCode(USER_MEMBER_CODE_PRESET))
                 .build();
 
-        user3 = User.builder()
+        User user3 = User.builder()
                 .name("testUser003")
                 .password("password3")
                 .userUuid(UUID.randomUUID().toString())

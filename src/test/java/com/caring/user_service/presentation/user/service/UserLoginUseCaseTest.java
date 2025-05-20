@@ -35,7 +35,6 @@ class UserLoginUseCaseTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private User testUser;
     private String testMemberCode;
     private String testWrongMemberCode;
     private String testPassword;
@@ -47,7 +46,7 @@ class UserLoginUseCaseTest {
         testPassword = "testPassword123";
         String encodedPassword = passwordEncoder.encode(testPassword);
 
-        testUser = User.builder()
+        User testUser = User.builder()
                 .name("testUser001")
                 .password(encodedPassword)
                 .memberCode(testMemberCode)
