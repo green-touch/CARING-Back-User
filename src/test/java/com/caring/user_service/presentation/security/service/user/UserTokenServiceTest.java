@@ -1,6 +1,5 @@
 package com.caring.user_service.presentation.security.service.user;
 
-import com.caring.user_service.common.service.DatabaseCleanUp;
 import com.caring.user_service.common.service.RedisService;
 import com.caring.user_service.domain.user.business.adaptor.UserAdaptor;
 import com.caring.user_service.domain.user.entity.Role;
