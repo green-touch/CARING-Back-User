@@ -7,7 +7,6 @@ import com.caring.user_service.domain.user.entity.Role;
 import com.caring.user_service.domain.user.entity.User;
 import com.caring.user_service.presentation.security.vo.JwtToken;
 import com.caring.user_service.presentation.user.service.UserLoginUseCase;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,8 +35,6 @@ class UserTokenServiceTest {
     private UserAdaptor userAdaptor;
     @Mock
     private UserLoginUseCase userLoginUseCase;
-    @Mock
-    private DatabaseCleanUp databaseCleanUp;
 
     private User testUser;
     private static final String TEST_SECRET_KEY = "testSecretKey1234567890123456789012345678901234567890";
