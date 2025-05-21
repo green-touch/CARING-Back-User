@@ -129,4 +129,26 @@ class UserDomainServiceTest {
         // uuid 형식 확인 (8-4-4-4-12)
         assertThat(user.getUserUuid()).matches("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$");
     }
+
+    @Test
+    @DisplayName("이름, 비밀번호, 보호소 UUID를 입력하여 유저를 등록합니다.")
+    void registerUserWithShelterUuid() {
+        // given
+        String name = "user";
+        String password = "password";
+        String shelterUuid = "shelter-1234";
+
+        // when
+        User user = userDomainService.registerUserWithShelterUuid(name, password, shelterUuid);
+
+        // then
+        assertThat(user.getName()).isEqualTo(name);
+        assertThat(user.getRole()).isEqualTo(Role.USER);
+        assertThat(user.getUserUuid()).isNotNull();
+        assertThat(user.getPassword()).isNotEqualTo(password); // 암호화 확인
+        assertThat(user.getShelterUuid()).isEqualTo(shelterUuid);
+        assertThat(user.getMemberCode())
+                .startsWith("CRU#")
+                .hasSize(11); // CRU# + 7자리 랜덤 문자열
+    }
 }
