@@ -60,11 +60,6 @@ class UserTokenServiceTest {
                 .build();
     }
 
-    @AfterEach
-    void cleanUp() {
-        databaseCleanUp.truncateAllEntity();
-    }
-
     @Test
     @DisplayName("로그인 시 JWT 토큰이 정상적으로 생성됩니다.")
     void login() {
