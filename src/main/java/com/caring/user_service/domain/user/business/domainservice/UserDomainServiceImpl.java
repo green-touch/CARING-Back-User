@@ -35,6 +35,22 @@ public class UserDomainServiceImpl implements UserDomainService {
         return userRepository.save(newUser);
     }
 
+    @Override
+    public User registerUserWithShelterUuid(String name, String password, String shelterUuid) {
+        validateName(name);
+        validatePassword(password);
+
+        User newUser = User.builder()
+                .memberCode(generateRandomMemberCode(USER_MEMBER_CODE_PRESET))
+                .userUuid(UUID.randomUUID().toString())
+                .role(Role.USER)
+                .password(passwordEncoder.encode(password))
+                .name(name)
+                .shelterUuid(shelterUuid)
+                .build();
+        return userRepository.save(newUser);
+    }
+
     private void validateName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("이름은 null일 수 없습니다");
