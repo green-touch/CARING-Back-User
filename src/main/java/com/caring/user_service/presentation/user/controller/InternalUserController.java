@@ -3,8 +3,6 @@ package com.caring.user_service.presentation.user.controller;
 import com.caring.user_service.presentation.user.service.GetUserShelterUuidUseCase;
 import com.caring.user_service.presentation.user.service.GetUsersByUuidListUseCase;
 import com.caring.user_service.presentation.user.service.RegisterUserByManagerUseCase;
-import com.caring.user_service.presentation.user.service.RegisterUserUseCase;
-import com.caring.user_service.presentation.user.vo.RequestUser;
 import com.caring.user_service.presentation.user.vo.RequestUserWithShelterUuid;
 import com.caring.user_service.presentation.user.vo.ResponseUser;
 import com.caring.user_service.presentation.user.vo.ResponseUserShelterUuid;
