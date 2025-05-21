@@ -77,4 +77,28 @@ class GetUsersByUuidListUseCaseTest {
                 .extracting(ResponseUser::getUserUuid)
                 .containsExactlyInAnyOrder(user1.getUserUuid(), user2.getUserUuid());
     }
+
+    @Test
+    @DisplayName("빈 UUID 목록으로 조회 시 빈 결과 목록을 반환한다")
+    void executeWithEmptyList() {
+        // when
+        List<ResponseUser> result = getUsersByUuidListUseCase.execute(List.of());
+
+        // then
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 UUID가 포함된 목록으로 조회 시 존재하는 사용자만 반환한다")
+    void executeWithNonExistentUuid() {
+        // given
+        List<String> mixedUuidList = Arrays.asList(user1.getUserUuid(), "non-existent-uuid");
+
+        // when
+        List<ResponseUser> result = getUsersByUuidListUseCase.execute(mixedUuidList);
+
+        // then
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).getUserUuid()).isEqualTo(user1.getUserUuid());
+    }
 }
