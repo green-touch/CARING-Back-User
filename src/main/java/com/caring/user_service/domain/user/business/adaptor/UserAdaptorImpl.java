@@ -1,6 +1,7 @@
 package com.caring.user_service.domain.user.business.adaptor;
 
 import com.caring.user_service.common.annotation.Adaptor;
+import com.caring.user_service.domain.user.business.validator.UserValidator;
 import com.caring.user_service.domain.user.entity.User;
 import com.caring.user_service.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 public class UserAdaptorImpl implements UserAdaptor{
 
     private final UserRepository userRepository;
+    private final UserValidator userValidator;
 
     @Override
     public User queryUserById(Long userId) {
@@ -29,10 +31,7 @@ public class UserAdaptorImpl implements UserAdaptor{
 
     @Override
     public User queryUserByMemberCode(String memberCode) {
-        if (memberCode == null || memberCode.trim().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "MemberCode must not be null or blank");
-        }
+        userValidator.validateMemberCode(memberCode);
 
         return userRepository.findByMemberCode(memberCode)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,

@@ -41,4 +41,14 @@ public class UserValidatorImpl implements UserValidator{
             throw new IllegalArgumentException("비밀번호는 빈 문자열일 수 없습니다");
         }
     }
+
+    @Override
+    public void validateMemberCode(String memberCode) {
+        if(memberCode == null) {
+            throw new IllegalArgumentException("멤버코드는 null일 수 없습니다");
+        }
+        if(!StringUtils.hasText(memberCode)) {
+            throw new IllegalArgumentException("멤버코드는 빈 문자열일 수 없습니다");
+        }
+    }
 }
