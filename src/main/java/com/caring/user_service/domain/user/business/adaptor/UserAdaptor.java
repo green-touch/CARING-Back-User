@@ -1,6 +1,5 @@
 package com.caring.user_service.domain.user.business.adaptor;
 
-import com.caring.user_service.domain.manager.entity.Manager;
 import com.caring.user_service.domain.user.entity.User;
 
 import java.util.List;
@@ -15,5 +14,5 @@ public interface UserAdaptor {
 
     User queryUserByUserUuid(String userUuid);
 
-    List<User> queryUserByManagerGroup(Manager manager);
+    List<User> queryByUserUuidList(List<String> userUuidList);
 }
